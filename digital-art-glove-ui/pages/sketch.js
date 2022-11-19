@@ -1,0 +1,43 @@
+import React, { Component, useEffect } from 'react';
+import p5 from '../p5';
+
+class Sketch extends Component {
+    constructor() {
+        super()
+        this.renderRef = React.createRef()
+        this.state = {
+            x: 100,
+            y: 100
+        }
+    }
+
+    componentDidMount(){
+        this.sketch = new p5( p => {
+            p.setup = ()  => {
+                p.createCanvas(p.windowWidth, p.windowHeight)
+                .parent(this.renderRef.current);
+                p.background('white');
+                p.strokeWeight(15);
+            }
+            p.windowResized = () => {
+                p.resizeCanvas(p.windowWidth, p.windowHeight )
+            }
+            p.draw = () => {
+                if(p.mouseIsPressed){
+                    p.stroke(0)
+                    p.line(p.mouseX , p.mouseY, p.mouseX , p.mouseY);
+                }
+            }
+        });
+    }
+
+    render(){
+        return (
+        <div className="App">
+            <div ref={this.renderRef}></div>
+        </div>
+        );
+    }
+}
+
+export default Sketch;
