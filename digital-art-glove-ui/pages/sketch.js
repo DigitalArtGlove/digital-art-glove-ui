@@ -1,43 +1,37 @@
-import React, { Component, useEffect } from 'react';
-import p5 from '../p5';
+import React from 'react';
+import dynamic from 'next/dynamic'
+const Sketch = dynamic( () => import('react-p5'), { ssr: false } )
 
-class Sketch extends Component {
-    constructor() {
-        super()
-        this.renderRef = React.createRef()
-        this.state = {
-            x: 100,
-            y: 100
-        }
-    }
+const setup = (p5, canvasParentRef) => {
+  // use parent to render the canvas in this ref
+  // (without that p5 will render the canvas outside of your component)
+  const height = window.innerHeight
+  const width = window.innerWidth
+  p5.createCanvas(width, height).parent(canvasParentRef);
+  p5.background('white');
+  p5.strokeWeight(15);
+  var button = p5.createButton('Clear');
+  button.position(width/2, height - 75);
+  button.mousePressed(clearBackground(p5));
+};
 
-    componentDidMount(){
-        this.sketch = new p5( p => {
-            p.setup = ()  => {
-                p.createCanvas(p.windowWidth, p.windowHeight)
-                .parent(this.renderRef.current);
-                p.background('white');
-                p.strokeWeight(15);
-            }
-            p.windowResized = () => {
-                p.resizeCanvas(p.windowWidth, p.windowHeight )
-            }
-            p.draw = () => {
-                if(p.mouseIsPressed){
-                    p.stroke(0)
-                    p.line(p.mouseX , p.mouseY, p.mouseX , p.mouseY);
-                }
-            }
-        });
-    }
+const draw = (p5) => {
+  // // NOTE: Do not use setState in the draw function or in functions that are executed
+  // // in the draw function...
+  // // please use normal variables or class properties for these purposes
 
-    render(){
-        return (
-        <div className="App">
-            <div ref={this.renderRef}></div>
-        </div>
-        );
-    }
-}
+  if (p5.mouseIsPressed) { 
+    p5.stroke(0)
+    p5.line(p5.mouseX , p5.mouseY, p5.pmouseX , p5.pmouseY);
+  }
+};
 
-export default Sketch;
+const clearBackground = (p5) => {
+  p5.background('white');
+};
+
+export default function MySketch (props) {
+
+	return <Sketch setup={setup} draw={draw} />;
+
+};

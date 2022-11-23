@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import styles from '../styles/Canvas.module.css'
-import Script from 'next/script'
 import Sketch from './sketch'
 
 export default function Canvas() {
