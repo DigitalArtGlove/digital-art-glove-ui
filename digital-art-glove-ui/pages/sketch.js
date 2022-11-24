@@ -21,7 +21,7 @@ const draw = (p5) => {
   // // please use normal variables or class properties for these purposes
 
   if (p5.mouseIsPressed) { 
-    p5.line(p5.mouseX , p5.mouseY, p5.pmouseX , p5.pmouseY);
+    p5.line(p5.mouseX, p5.mouseY, p5.pmouseX , p5.pmouseY);
   }
 };
 
