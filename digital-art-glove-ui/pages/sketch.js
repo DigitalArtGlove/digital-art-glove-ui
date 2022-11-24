@@ -1,18 +1,18 @@
 import React from 'react';
-import dynamic from 'next/dynamic'
-const Sketch = dynamic( () => import('react-p5'), { ssr: false } )
+import dynamic from 'next/dynamic';
+const Sketch = dynamic( () => import('react-p5'), { ssr: false } );
 
 const setup = (p5, canvasParentRef) => {
   // use parent to render the canvas in this ref
   // (without that p5 will render the canvas outside of your component)
-  const height = window.innerHeight
-  const width = window.innerWidth
+  const height = window.innerHeight;
+  const width = window.innerWidth;
   p5.createCanvas(width, height).parent(canvasParentRef);
   p5.background('white');
-  p5.strokeWeight(15);
+  p5.strokeWeight(5);
   var button = p5.createButton('Clear');
   button.position(width/2, height - 75);
-  button.mousePressed(clearBackground(p5));
+  button.mousePressed(() => {p5.clear()});
 };
 
 const draw = (p5) => {
@@ -21,13 +21,8 @@ const draw = (p5) => {
   // // please use normal variables or class properties for these purposes
 
   if (p5.mouseIsPressed) { 
-    p5.stroke(0)
     p5.line(p5.mouseX , p5.mouseY, p5.pmouseX , p5.pmouseY);
   }
-};
-
-const clearBackground = (p5) => {
-  p5.background('white');
 };
 
 export default function MySketch (props) {
