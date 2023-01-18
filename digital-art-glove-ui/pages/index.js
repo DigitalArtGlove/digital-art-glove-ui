@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+import { WebSocketNext } from 'nextjs-websocket'
 
 export default function Home() {
   return (
@@ -35,11 +36,17 @@ export default function Home() {
           </a>
 
         </div>
+        {/* <WebSocketNext
+          url="ws://localhost:8765"
+          onOpen={() => console.log("Websocket open...")}
+          onMessage={data => console.log(data)}
+        /> */}
       </main>
 
       <footer className={styles.footer}>
         Created by Beatrice Tam, Kaylee Jung, Mika Nogami, and Josiann Zhou
       </footer>
+
     </div>
   )
 }
