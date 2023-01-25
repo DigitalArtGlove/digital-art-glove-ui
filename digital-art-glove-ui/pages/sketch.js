@@ -49,7 +49,7 @@ export default function MySketch (props) {
             console.log(data);
             const d = data.split(" ");
             setUpdate(true);
-            setPos([Number(d[0]), Number(d[1])]);
+            setPos([Number(d[0]/100*window.innerWidth), Number(d[1]/100*window.innerHeight)]);
           }}
         />
     </>;
