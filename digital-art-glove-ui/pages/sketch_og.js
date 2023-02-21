@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
-const URL_WEB_SOCKET = 'ws://localhost:8765/';
+import { WebSocketNext } from 'nextjs-websocket'
 
 const Sketch = dynamic( () => import('react-p5'), { ssr: false } );
 
-const MySketch = () => {
-  const [ws, setWs] = React.useState(null);
+export default function MySketch (props) {
   const [update, setUpdate] = React.useState(false);
   const [clear, setClear] = React.useState(false);
   const [pos, setPos] = React.useState([0,0]);
@@ -23,40 +22,36 @@ const MySketch = () => {
     button.position(width/2, height - 75);
     button.mousePressed(() => {setClear(true); p5.clear(); setClear(false)});
   };
-
-  useEffect(() => {
-    const wsClient = new WebSocket(URL_WEB_SOCKET);
-    wsClient.onopen = () => {
-      setWs(wsClient);
-      console.log("ws open\n");
-    };
-    wsClient.onclose = () => console.log("ws closed\n");
-    return () => {
-      wsClient.close();
-    };
-  }, []);
-
+  
   const draw = (p5) => {
-    if (update && !clear) {
+    // // NOTE: Do not use setState in the draw function or in functions that are executed
+    // // in the draw function...
+    // // please use normal variables or class properties for these purposes
+  
+    // if (p5.mouseIsPressed) { 
+    //   p5.line(p5.mouseX, p5.mouseY, p5.pmouseX , p5.pmouseY);
+    //   // p5.line(p5.mouseX , p5.mouseY, p5.mouseX , p5.mouseY);
+    // }
+    if (update && !clear) { 
+      // p5.line(p5.mouseX, p5.mouseY, p5.pmouseX , p5.pmouseY);
       p5.line(pos[0], pos[1], prevPos[0] , prevPos[1]);
       setPrevPos(pos);
       setUpdate(false);
     }
-  }
+  };
 
-  useEffect(() => {
-    if (ws) {
-      ws.onmessage = (evt) => {
-        //console.log(evt.data);
-        const d = evt.data.split(" ");
-        setUpdate(true);
-        setPos([Number(d[10]/100*window.innerWidth), Number(d[11]/100*window.innerHeight)]);
-      };
-    }
-  }, [ws]);
-
-  return (
+	return <>
     <Sketch setup={setup} draw={draw} />
-  );
+    <WebSocketNext
+          url="ws://localhost:8765"
+          onOpen={() => console.log("Websocket open...")}
+          onMessage={data => {
+            console.log(data);
+            const d = data.split(" ");
+            setUpdate(true);
+            setPos([Number(d[0]/100*window.innerWidth), Number(d[1]/100*window.innerHeight)]);
+          }}
+        />
+    </>;
+
 };
-export default MySketch;

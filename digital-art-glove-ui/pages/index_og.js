@@ -1,6 +1,8 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+import { WebSocketNext } from 'nextjs-websocket'
 
 export default function Home() {
   return (
@@ -8,9 +10,9 @@ export default function Home() {
       <Head>
         <title>Digital Art Glove</title>
         <meta name="description" content="UI for 2022 IGEN 430 Digital Art Glove Project" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to Digital Art Glove
@@ -18,8 +20,8 @@ export default function Home() {
 
         <p className={styles.description}>
           Get started by selecting a mode
-          <code className={styles.code}>pages/index.js</code>
         </p>
+
         <div className={styles.grid}>
           <Link href="./canvas">
             <div className={styles.card}>
@@ -28,15 +30,17 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link href="./playroom">
-            <div className={styles.card}>
-              <h2>Freeform Mode &rarr;</h2>
-              <p>This feature is still in development... Check back soon!</p>
-            </div>
-          </Link>
+          <a href="" className={styles.card}>
+            <h2>Training Mode &rarr;</h2>
+            <p>This feature is not yet available, please hold tight!</p>
+          </a>
 
         </div>
-
+        {/* <WebSocketNext
+          url="ws://localhost:8765"
+          onOpen={() => console.log("Websocket open...")}
+          onMessage={data => console.log(data)}
+        /> */}
       </main>
 
       <footer className={styles.footer}>
