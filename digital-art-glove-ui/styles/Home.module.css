@@ -109,6 +109,15 @@
   margin-left: 0.5rem;
 }
 
+.cursor {
+  background: lightblue;
+  border-radius: 50%;
+  opacity: 0.5;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
