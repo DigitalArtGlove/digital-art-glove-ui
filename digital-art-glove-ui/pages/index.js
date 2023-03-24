@@ -69,6 +69,17 @@ export default function Home() {
     }
   }, [ws2]);
 
+  useEffect(() => {
+    let elem1 = document.getElementById("canvasLink");
+    // console.log(elem1)
+    let rect1 = elem1.getBoundingClientRect();
+    // console.log(rect1)
+    let elem2 = document.getElementById("freeformLink");
+    // console.log(elem2)
+    let rect2 = elem2.getBoundingClientRect();
+    // console.log(rect2)
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -97,14 +108,14 @@ export default function Home() {
         </p>
         <div className={styles.grid}>
           <Link href="./canvas">
-            <div className={styles.card}>
+            <div id="canvasLink" className={styles.card}>
               <h2>Art Mode &rarr;</h2>
               <p>Create freeform art on a blank canvas</p>
             </div>
           </Link>
 
           <Link href="./playroom">
-            <div className={styles.card}>
+            <div id="freeformLink" className={styles.card}>
               <h2>Freeform Mode &rarr;</h2>
               <p>This feature is still in development... Check back soon!</p>
             </div>
