@@ -31,12 +31,19 @@ const MySketch = () => {
   const [update, setUpdate] = React.useState(false);
   const [clear, setClear] = React.useState(false);
 
+  const [xPos, setxPos] = React.useState(0);
+  const [yPos, setyPos] = React.useState(0);
+
   const [pos, setPos] = React.useState([0,0]);
   const [prevPos, setPrevPos] = React.useState([0,0]);
 
   const [select, setSelect] = React.useState(false);
   const [erase, setErase] = React.useState(false);
-  const [colour, setColour] = React.useState(false);
+  const [changeColour, setChangeColour] = React.useState(false);
+  const [colourIndex, setColourIndex] = React.useState(0);
+
+  const colourValues = [0,100,200];
+  let prevPinky = 0;
 
   const setup = (p5, canvasParentRef) => {
     // use parent to render the canvas in this ref
@@ -83,6 +90,8 @@ const MySketch = () => {
         const d = evt.data.split(" ");
         setUpdate(true);
         setPos([Number(d[x_coord]/100*window.innerWidth), Number(d[y_coord]/100*window.innerHeight)]);
+        setxPos(Number(d[0]/100*window.innerWidth));
+        setyPos(Number(d[1]/100*window.innerHeight));
       };
     }
   }, [ws1]);
@@ -105,42 +114,27 @@ const MySketch = () => {
           setErase(false);
         }
 
-        if (d[pinky_force] > 200) {
-          setColour(true);
+        if (d[pinky_force] > 200 && prevPinky < 200) {
+          setChangeColour(true);
+          prevPinky = d[pinky_force];
+          // console.log(prevPinky);
         } else {
-          setColour(false);
+          setChangeColour(false);
+          prevPinky = d[pinky_force];
         }
 
       };
     }
   }, [ws2]);
 
-  var colour_choice = 0;
-  var i = 0;
-
-  function switchColour (i) {
-    switch (i){
-      case 1:
-        colour_choice = 0;
-        break;
-      case 2:
-        colour_choice = 100;
-        break;
-      case 3:
-        colour_choice = 200;
-        break;
-    }
-    return colour_choice
-  }
-
   const draw = (p5) => {
     // background_colour 
     // p5.background(background_colour);
-    if (update && colour) {
-      i++;
-      switchColour(i);
-      p5.stroke(colour_choice);
-      console.log(colour_choice);
+    if (update && changeColour) {
+      setColourIndex((colourIndex + 1) % colourValues.length);
+      p5.stroke(colourValues[colourIndex]);
+      console.log(colourValues[colourIndex]);
+      // console.log(colour_choice);
     }
     if (update && select && !erase && !clear) {
       p5.line(pos[x_coord], pos[y_coord], prevPos[x_coord] , prevPos[y_coord]);
@@ -166,6 +160,14 @@ const MySketch = () => {
   return (
     <>
       <Sketch setup={setup} draw={draw} />
+      <div className="box">
+          <div className={styles.cursor}
+            style = {{
+              left: (xPos-20)+'px',
+              top: (yPos-20)+'px'
+            }}
+          />
+      </div>
     </>
   );
 };

@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
 
 const URL_WEB_SOCKET1 = 'ws://localhost:8765/';
 const URL_WEB_SOCKET2 = 'ws://localhost:8766/';
@@ -15,10 +16,15 @@ export default function Home() {
   const [ws2, setWs2] = React.useState(null);
 
   const [select, setSelect] = React.useState(false);
+  const [hover1, setHover1] = React.useState(false);
+  const [hover2, setHover2] = React.useState(false);
   
   const [xPos, setxPos] = React.useState(0);
   const [yPos, setyPos] = React.useState(0);
+
+  const router = useRouter()
   
+  // start websockets for cv and serial data
   useEffect(() => {
     const wsClient1 = new WebSocket(URL_WEB_SOCKET1);
     wsClient1.onopen = () => {
@@ -32,17 +38,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (ws1) {
-      ws1.onmessage = (evt) => {
-        // console.log(evt.data);
-        const d = evt.data.split(" ");
-        setxPos(Number(d[0]/100*window.innerWidth));
-        setyPos(Number(d[1]/100*window.innerHeight));
-      };
-    }
-  }, [ws1]);
-
-  useEffect(() => {
     const wsClient2 = new WebSocket(URL_WEB_SOCKET2);
     wsClient2.onopen = () => {
       setWs2(wsClient2);
@@ -54,6 +49,19 @@ export default function Home() {
     };
   }, []);
 
+  // get cv data
+  useEffect(() => {
+    if (ws1) {
+      ws1.onmessage = (evt) => {
+        // console.log(evt.data);
+        const d = evt.data.split(" ");
+        setxPos(Number(d[0]/100*window.innerWidth));
+        setyPos(Number(d[1]/100*window.innerHeight));
+      };
+    }
+  }, [ws1]);
+
+  // get select from force sensor
   useEffect(() => {
     if (ws2) {
       ws2.onmessage = (evt) => {
@@ -69,16 +77,32 @@ export default function Home() {
     }
   }, [ws2]);
 
+  // get element positioning
   useEffect(() => {
     let elem1 = document.getElementById("canvasLink");
-    // console.log(elem1)
     let rect1 = elem1.getBoundingClientRect();
-    // console.log(rect1)
+    // console.log(rect1);
     let elem2 = document.getElementById("freeformLink");
-    // console.log(elem2)
     let rect2 = elem2.getBoundingClientRect();
-    // console.log(rect2)
-  }, []);
+
+    if (xPos > rect1.x && xPos < (rect1.x + rect1.width) && yPos > rect1.y && yPos < (rect1.y + rect1.height)) {
+      setHover1(true);
+    }
+
+    if (xPos > rect2.x && xPos < (rect2.x + rect2.width) && yPos > rect2.y && yPos < (rect2.y + rect2.height)) {
+      setHover2(true);
+    }
+  }, [xPos, yPos])
+
+  //redirect to canvas or freeform
+  useEffect(() => {
+    if (hover1 && select) {
+      router.push('/canvas');
+    }
+    if (hover2 && select) {
+      router.push('/playroom');
+    }
+  },[hover1, hover2, select]);
 
   return (
     <div className={styles.container}>
