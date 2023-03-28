@@ -34,8 +34,8 @@ const MySketch = () => {
   const [xPos, setxPos] = React.useState(0);
   const [yPos, setyPos] = React.useState(0);
 
-  const [pos, setPos] = React.useState([0,0]);
-  const [prevPos, setPrevPos] = React.useState([0,0]);
+  const [pos, setPos] = React.useState(null);
+  const [prevPos, setPrevPos] = React.useState(null);
 
   const [select, setSelect] = React.useState(false);
   const [erase, setErase] = React.useState(false);
@@ -136,7 +136,7 @@ const MySketch = () => {
       console.log(colourValues[colourIndex]);
       // console.log(colour_choice);
     }
-    if (update && select && !erase && !clear) {
+    if (update && select && !erase && !clear && prevPos != null) {
       p5.line(pos[x_coord], pos[y_coord], prevPos[x_coord] , prevPos[y_coord]);
       // background_colour = 255;
       setPrevPos(pos);
