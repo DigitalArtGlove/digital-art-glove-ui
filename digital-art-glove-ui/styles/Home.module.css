@@ -118,6 +118,64 @@
   position: absolute;
 }
 
+.currentColour {
+  width: 40px;
+  height: 40px;
+  outline-style: solid;
+  outline-color: black;
+  display: inline-block;
+  margin: 10px;
+}
+
+.currentColourBox {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.blackBox {
+  width: 30px;
+  height: 30px;
+  outline-style: solid;
+  outline-color: black;
+  display: inline-block;
+  margin: 10px;
+  background-color: black;
+}
+
+.purpleBox {
+  width: 30px;
+  height: 30px;
+  outline-style: solid;
+  outline-color: black;
+  display: inline-block;
+  margin: 10px;
+  background-color: rgb(135,40,237);
+}
+
+.blueBox {
+  width: 30px;
+  height: 30px;
+  outline-style: solid;
+  outline-color: black;
+  display: inline-block;
+  margin: 10px;
+  background-color: rgb(25,175,250);
+}
+
+.pinkBox {
+  width: 30px;
+  height: 30px;
+  outline-style: solid;
+  outline-color: black;
+  display: inline-block;
+  margin: 10px;
+  background-color: rgb(222,22,212);
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

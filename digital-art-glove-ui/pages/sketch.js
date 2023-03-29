@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styles from '../styles/Home.module.css'
 import Cursor from './cursor'
+import ColourBox from './colourBox';
 
 const URL_WEB_SOCKET1 = 'ws://localhost:8765/';
 const URL_WEB_SOCKET2 = 'ws://localhost:8766/';
@@ -42,7 +43,7 @@ const MySketch = () => {
   const [changeColour, setChangeColour] = React.useState(false);
   const [colourIndex, setColourIndex] = React.useState(0);
 
-  const colourValues = [0,100,200];
+  const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
   let prevPinky = 0;
 
   const setup = (p5, canvasParentRef) => {
@@ -131,9 +132,13 @@ const MySketch = () => {
     // background_colour 
     // p5.background(background_colour);
     if (update && changeColour) {
-      setColourIndex((colourIndex + 1) % colourValues.length);
-      p5.stroke(colourValues[colourIndex]);
-      console.log(colourValues[colourIndex]);
+      setColourIndex((colourIndex + 1) % Object.keys(colourValues).length);
+      let colourSet = colourValues[colourIndex].split(" ");
+      let rVal = Number(colourSet[0]);
+      let gVal = Number(colourSet[1]);
+      let bVal = Number(colourSet[2]);
+      p5.stroke(rVal, gVal, bVal);
+      // console.log(colourValues[colourIndex];
       // console.log(colour_choice);
     }
     if (update && select && !erase && !clear && prevPos != null) {
@@ -167,6 +172,10 @@ const MySketch = () => {
               top: (yPos-20)+'px'
             }}
           />
+      </div>
+      <div className={styles.currentColourBox}>
+          <div>The current brush colour is</div>
+          <ColourBox colourValue={colourIndex} />
       </div>
     </>
   );
