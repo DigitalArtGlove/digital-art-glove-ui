@@ -25,6 +25,9 @@ const pinky_force = 9;
 const x_coord = 0;
 const y_coord = 1;
 
+// Same as coordRes used in CV file that determines the resolution (number of digits) we send to front-end
+const coordRes = Math.pow(2,10);
+
 const MySketch = () => {
   const [ws1, setWs1] = React.useState(null);
   const [ws2, setWs2] = React.useState(null);
@@ -37,6 +40,7 @@ const MySketch = () => {
 
   const [pos, setPos] = React.useState(null);
   const [prevPos, setPrevPos] = React.useState(null);
+  const [prevPrevPos, setPrevPrevPos] = React.useState(null);
 
   const [select, setSelect] = React.useState(false);
   const [erase, setErase] = React.useState(false);
@@ -90,9 +94,9 @@ const MySketch = () => {
         // console.log(evt);
         const d = evt.data.split(" ");
         setUpdate(true);
-        setPos([Number(d[x_coord]/100*window.innerWidth), Number(d[y_coord]/100*window.innerHeight)]);
-        setxPos(Number(d[0]/100*window.innerWidth));
-        setyPos(Number(d[1]/100*window.innerHeight));
+        setPos([Number(d[x_coord]/coordRes*window.innerWidth), Number(d[y_coord]/coordRes*window.innerHeight)]);
+        setxPos(Number(d[0]/coordRes*window.innerWidth));
+        setyPos(Number(d[1]/coordRes*window.innerHeight));
       };
     }
   }, [ws1]);
@@ -141,23 +145,38 @@ const MySketch = () => {
       // console.log(colourValues[colourIndex];
       // console.log(colour_choice);
     }
-    if (update && select && !erase && !clear && prevPos != null) {
-      p5.line(pos[x_coord], pos[y_coord], prevPos[x_coord] , prevPos[y_coord]);
+    if (update && !select && !erase && !clear && prevPrevPos != null) {
+      
+      p5.noFill();
+      p5.beginShape();
+      p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
+      p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
+      p5.curveVertex(prevPos[x_coord], prevPos[y_coord]);
+      p5.curveVertex(pos[x_coord], pos[y_coord]);      
+      p5.curveVertex(pos[x_coord], pos[y_coord]);      
+      p5.endShape();
+      
+      //p5.line(pos[x_coord], pos[y_coord], prevPos[x_coord], prevPos[y_coord]);
       // background_colour = 255;
       setPrevPos(pos);
+      setPrevPrevPos(prevPos);
       setUpdate(false);
-    } else if (update && erase && !select && !clear) {
+    } else if (update && erase && !select && !clear && prevPrevPos != null) {
       // background_colour = 235;
       p5.erase();
       p5.fill(255,0,0);
       p5.circle(pos[x_coord], pos[y_coord], 30);
+      //p5.line(pos[x_coord], pos[y_coord], prevPos[x_coord], prevPos[y_coord]);
+
       p5.noErase();
       setPrevPos(pos);
+      setPrevPrevPos(prevPos);
       setUpdate(false);
     } else if (update && !select && !erase) {
       // p5.background('white');
       // p5.circle(pos[0], pos[1], 30);
       setPrevPos(pos);
+      setPrevPrevPos(prevPos);
       setUpdate(false);
     }
   }
