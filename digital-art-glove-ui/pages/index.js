@@ -9,6 +9,7 @@ const URL_WEB_SOCKET1 = 'ws://localhost:8765/';
 const URL_WEB_SOCKET2 = 'ws://localhost:8766/';
 
 const index_force = 6;
+const coordRes = Math.pow(2,10);
 
 export default function Home() {
 
@@ -55,8 +56,8 @@ export default function Home() {
       ws1.onmessage = (evt) => {
         // console.log(evt.data);
         const d = evt.data.split(" ");
-        setxPos(Number(d[0]/100*window.innerWidth));
-        setyPos(Number(d[1]/100*window.innerHeight));
+        setxPos(Number(d[0]/coordRes*window.innerWidth));
+        setyPos(Number(d[1]/coordRes*window.innerHeight));
       };
     }
   }, [ws1]);
