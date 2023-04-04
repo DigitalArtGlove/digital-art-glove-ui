@@ -55,13 +55,16 @@ const MySketch = () => {
     // (without that p5 will render the canvas outside of your component)
     const height = window.innerHeight;
     const width = window.innerWidth;
-    p5.createCanvas(width, height).parent(canvasParentRef);
+    let c = p5.createCanvas(width, height).parent(canvasParentRef);
     // p5.background('white');
     p5.stroke(0);
     p5.strokeWeight(5);
     var button = p5.createButton('Clear');
-    button.position(width/2, height - 75);
+    button.position(width/2 - 35, height - 75);
     button.mousePressed(() => {setClear(true); p5.clear(); setClear(false)});
+    var saveButton = p5.createButton('Save');
+    saveButton.position(width/2 + 35 , height - 75);
+    saveButton.mousePressed(() => {p5.saveCanvas(c, 'myCanvas', 'jpg');})
   };
 
   useEffect(() => {
