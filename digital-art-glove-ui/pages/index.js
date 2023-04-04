@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 const URL_WEB_SOCKET1 = 'ws://localhost:8765/';
 const URL_WEB_SOCKET2 = 'ws://localhost:8766/';
 
-const index_force = 6;
+const middle_force = 5;
 const coordRes = Math.pow(2,10);
 
 export default function Home() {
@@ -69,7 +69,7 @@ export default function Home() {
         // console.log(evt);
         const d = evt.data.split(" ");
 
-        if (d[index_force] > 200) {
+        if (d[middle_force] > 200) {
           setSelect(true);
         } else {
           setSelect(false);

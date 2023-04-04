@@ -13,13 +13,13 @@ const Sketch = dynamic( () => import('react-p5'), { ssr: false } );
 const yaw = 0;
 const pitch = 1;
 const roll = 2;
-const index_flex = 3;
-const middle_flex = 4;
-const ring_flex = 5;
-const index_force = 6;
-const middle_force = 7;
-const ring_force = 8;
-const pinky_force = 9;
+// const index_flex = 3;
+const middle_flex = 3;
+const ring_flex = 4;
+// const index_force = 6;
+const middle_force = 5;
+const ring_force = 6;
+const pinky_force = 7;
 
 // declaring cv
 const x_coord = 0;
@@ -45,10 +45,11 @@ const MySketch = () => {
   const [select, setSelect] = React.useState(false);
   const [erase, setErase] = React.useState(false);
   const [changeColour, setChangeColour] = React.useState(false);
+  const [currentChangeColourState, setCurrentChangeColourState] = React.useState(false);
   const [colourIndex, setColourIndex] = React.useState(0);
+  const [colourBoxValue, setColourBoxValue] = React.useState(0);
 
   const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
-  let prevPinky = 0;
 
   const setup = (p5, canvasParentRef) => {
     // use parent to render the canvas in this ref
@@ -110,13 +111,13 @@ const MySketch = () => {
         // console.log(evt);
         const d = evt.data.split(" ");
 
-        if (d[index_force] > 200) {
+        if (d[middle_force] > 125) {
           setSelect(true);
         } else {
           setSelect(false);
         }
 
-        if (d[ring_force] > 200) {
+        if (d[ring_force] > 125) {
           setErase(true);
         } else {
           setErase(false);
@@ -124,11 +125,9 @@ const MySketch = () => {
 
         if (d[pinky_force] > 200 && prevPinky < 200) {
           setChangeColour(true);
-          prevPinky = d[pinky_force];
-          // console.log(prevPinky);
         } else {
           setChangeColour(false);
-          prevPinky = d[pinky_force];
+          setCurrentChangeColourState(false);
         }
 
       };
@@ -138,17 +137,17 @@ const MySketch = () => {
   const draw = (p5) => {
     // background_colour 
     // p5.background(background_colour);
-    if (update && changeColour) {
+    if (update && changeColour && !currentChangeColourState) {
       setColourIndex((colourIndex + 1) % Object.keys(colourValues).length);
+      setColourBoxValue(colourIndex);
+      setCurrentChangeColourState(true);
       let colourSet = colourValues[colourIndex].split(" ");
       let rVal = Number(colourSet[0]);
       let gVal = Number(colourSet[1]);
       let bVal = Number(colourSet[2]);
       p5.stroke(rVal, gVal, bVal);
-      // console.log(colourValues[colourIndex];
-      // console.log(colour_choice);
     }
-    if (update && !select && !erase && !clear && prevPrevPos != null) {
+    if (update && select && !erase && !clear && prevPrevPos != null) {
       
       p5.noFill();
       p5.beginShape();
@@ -197,7 +196,7 @@ const MySketch = () => {
       </div>
       <div className={styles.currentColourBox}>
           <div>The current brush colour is</div>
-          <ColourBox colourValue={colourIndex} />
+          <ColourBox colourValue={colourBoxValue} />
       </div>
     </>
   );
