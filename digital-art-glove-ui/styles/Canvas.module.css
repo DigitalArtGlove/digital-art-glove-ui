@@ -4,7 +4,7 @@
 
   .canvas {
     /* padding: 10px; */
-    background-color: #eaeaea;
+    /* background-color: #eaeaea; */
   }
   
   .main {
@@ -19,7 +19,7 @@
   
   .footer {
     display: flex;
-    flex: 1;
+    /* flex: 1; */
     padding: 1rem 0;
     border-top: 1px solid #eaeaea;
     justify-content: center;
@@ -111,6 +111,45 @@
   .logo {
     height: 1em;
     margin-left: 0.5rem;
+  }
+
+  .sidebar{
+    position: absolute;
+  }
+  
+  .currentColourBox {
+    /* position: absolute; */
+    top: 30px;
+    left: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80px;
+    height: 100px;
+  }
+
+  .cursor {
+    background: lightblue;
+    border-radius: 50%;
+    opacity: 0.5;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+  }
+
+  .clearButton {
+    cursor: pointer;
+    padding: 10px;
+    border-style: solid;
+    border-radius: 25%;
+    outline-width: 2px;
+    margin: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .saveButton {
+    cursor: pointer;
+    margin: 10px;
   }
 
   @media (max-width: 600px) {

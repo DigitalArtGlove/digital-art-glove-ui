@@ -1,209 +1,101 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import styles from '../styles/Home.module.css';
-import ColourBox from './colourBox';
-
-const URL_WEB_SOCKET1 = 'ws://localhost:8765/';
-const URL_WEB_SOCKET2 = 'ws://localhost:8766/';
 
 const Sketch = dynamic( () => import('react-p5'), { ssr: false } );
-
-// declaring sensors
-const yaw = 0;
-const pitch = 1;
-const roll = 2;
-const middle_flex = 3;
-const ring_flex = 4;
-const middle_force = 5;
-const ring_force = 6;
-const pinky_force = 7;
 
 // declaring cv
 const x_coord = 0;
 const y_coord = 1;
 
-// Same as coordRes used in CV file that determines the resolution (number of digits) we send to front-end
-const coordRes = Math.pow(2,10);
-
 const MySketch = (data) => {
-  // const [ws1, setWs1] = React.useState(null);
-  // const [ws2, setWs2] = React.useState(null);
 
-  const [update, setUpdate] = React.useState(false);
-  const [clear, setClear] = React.useState(false);
+  // console.log(data.clear);
 
-  const [xPos, setxPos] = React.useState(0);
-  const [yPos, setyPos] = React.useState(0);
-
-  const [pos, setPos] = React.useState(null);
   const [prevPos, setPrevPos] = React.useState(null);
   const [prevPrevPos, setPrevPrevPos] = React.useState(null);
-
-  const [select, setSelect] = React.useState(false);
-  const [erase, setErase] = React.useState(false);
-  const [changeColour, setChangeColour] = React.useState(false);
-  const [currentChangeColourState, setCurrentChangeColourState] = React.useState(false);
-  const [colourIndex, setColourIndex] = React.useState(0);
-  const [colourBoxValue, setColourBoxValue] = React.useState(0);
+  
+  const [clear, setClear] = React.useState(false);
+  const [save, setSave] = React.useState(false);
+  const [notStartUp, setNotStartUp] = React.useState(false);
 
   const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
+
+  let size = Math.min(Math.max(data.pos[0]-300, 5), 65);
+
+  useEffect(()=> {
+    setClear(true);
+  }, [data.clearToggle]);
+
+  useEffect(()=> {
+    if (notStartUp) {
+      setSave(true);
+    }
+  }, [data.saveToggle]);
 
   const setup = (p5, canvasParentRef) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
-    const height = window.innerHeight;
+    const height = (window.innerHeight)*0.92;
     const width = window.innerWidth;
     let c = p5.createCanvas(width, height).parent(canvasParentRef);
     p5.background('white');
-    p5.stroke(0);
-    p5.strokeWeight(5);
-    var button = p5.createButton('Clear');
-    button.position(width/2 - 35, height - 75);
-    button.mousePressed(() => {setClear(true); p5.clear(); setClear(false)});
-    var saveButton = p5.createButton('Save');
-    saveButton.position(width/2 + 35 , height - 75);
-    saveButton.mousePressed(() => {p5.saveCanvas(c, 'myCanvas', 'jpg');})
   };
 
-  useEffect(() => {
-    if(data) {
-      setUpdate(true);
-      setPos([Number(data.cv_data[x_coord]/coordRes*window.innerWidth), Number(data.cv_data[y_coord]/coordRes*window.innerHeight)]);
-      setxPos(Number(data.cv_data[x_coord]/coordRes*window.innerWidth));
-      setyPos(Number(data.cv_data[y_coord]/coordRes*window.innerHeight));
-    }
-  }, [data]);
-
-  // useEffect(() => {
-  //   const wsClient1 = new WebSocket(URL_WEB_SOCKET1);
-  //   wsClient1.onopen = () => {
-  //     setWs1(wsClient1);
-  //     console.log("ws 1 open\n");
-  //   };
-  //   wsClient1.onclose = () => console.log("ws 1 closed\n");
-  //   return () => {
-  //     wsClient1.close();
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   const wsClient2 = new WebSocket(URL_WEB_SOCKET2);
-  //   wsClient2.onopen = () => {
-  //     setWs2(wsClient2);
-  //     console.log("ws 2 open\n");
-  //   };
-  //   wsClient2.onclose = () => console.log("ws 2 closed\n");
-  //   return () => {
-  //     wsClient2.close();
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (ws1) {
-  //     ws1.onmessage = (evt) => {
-  //       // console.log(evt);
-  //       const d = evt.data.split(" ");
-  //       setUpdate(true);
-  //       setPos([Number(d[x_coord]/coordRes*window.innerWidth), Number(d[y_coord]/coordRes*window.innerHeight)]);
-  //       setxPos(Number(d[0]/coordRes*window.innerWidth));
-  //       setyPos(Number(d[1]/coordRes*window.innerHeight));
-  //     };
-  //   }
-  // }, [ws1]);
-
-  // useEffect(() => {
-  //   if (ws2) {
-  //     ws2.onmessage = (evt) => {
-  //       // console.log(evt);
-  //       const d = evt.data.split(" ");
-
-  //       if (d[middle_force] > 125) {
-  //         setSelect(true);
-  //       } else {
-  //         setSelect(false);
-  //       }
-
-  //       if (d[ring_force] > 125) {
-  //         setErase(true);
-  //       } else {
-  //         setErase(false);
-  //       }
-
-  //       if (d[pinky_force] > 200 && prevPinky < 200) {
-  //         setChangeColour(true);
-  //       } else {
-  //         setChangeColour(false);
-  //         setCurrentChangeColourState(false);
-  //       }
-
-  //     };
-  //   }
-  // }, [ws2]);
-
   const draw = (p5) => {
-    // background_colour 
-    // p5.background(background_colour);
-    if (update && changeColour && !currentChangeColourState) {
-      setColourIndex((colourIndex + 1) % Object.keys(colourValues).length);
-      setColourBoxValue(colourIndex);
-      setCurrentChangeColourState(true);
-      let colourSet = colourValues[colourIndex].split(" ");
-      let rVal = Number(colourSet[0]);
-      let gVal = Number(colourSet[1]);
-      let bVal = Number(colourSet[2]);
-      p5.stroke(rVal, gVal, bVal);
-    }
-    if (update && select && !erase && !clear && prevPrevPos != null) {
+    let colourSet = colourValues[data.colourIndex].split(" ");
+    let rVal = Number(colourSet[0]);
+    let gVal = Number(colourSet[1]);
+    let bVal = Number(colourSet[2]);
+    p5.stroke(rVal, gVal, bVal);
+    p5.strokeWeight(size);
+
+    if (data.update && !data.select && !data.erase && prevPrevPos != null) {
       
       p5.noFill();
       p5.beginShape();
       p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
       p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
       p5.curveVertex(prevPos[x_coord], prevPos[y_coord]);
-      p5.curveVertex(pos[x_coord], pos[y_coord]);      
-      p5.curveVertex(pos[x_coord], pos[y_coord]);      
+      p5.curveVertex(data.pos[x_coord], data.pos[y_coord]);      
+      p5.curveVertex(data.pos[x_coord], data.pos[y_coord]);      
       p5.endShape();
       
-      //p5.line(pos[x_coord], pos[y_coord], prevPos[x_coord], prevPos[y_coord]);
-      // background_colour = 255;
-      setPrevPos(pos);
+      setPrevPos(data.pos);
       setPrevPrevPos(prevPos);
-      setUpdate(false);
-    } else if (update && erase && !select && !clear && prevPrevPos != null) {
-      // background_colour = 235;
+      setNotStartUp(true);
+
+    } else if (data.update && data.erase && !data.select && prevPrevPos != null) {
       p5.erase();
       p5.fill(255,0,0);
-      p5.circle(pos[x_coord], pos[y_coord], 30);
+      p5.circle(data.pos[x_coord], data.pos[y_coord], 30);
       //p5.line(pos[x_coord], pos[y_coord], prevPos[x_coord], prevPos[y_coord]);
 
       p5.noErase();
-      setPrevPos(pos);
+      setPrevPos(data.pos);
       setPrevPrevPos(prevPos);
-      setUpdate(false);
-    } else if (update && !select && !erase) {
+
+    } else if (data.update && !data.select && !data.erase) {
       // p5.background('white');
       // p5.circle(pos[0], pos[1], 30);
-      setPrevPos(pos);
+      setPrevPos(data.pos);
       setPrevPrevPos(prevPos);
-      setUpdate(false);
+    }
+    
+    if (clear) {
+      p5.clear();
+      p5.background('white');
+      setClear(false);
+    }
+    
+    if (save && notStartUp) {
+      p5.saveCanvas('myCanvas', 'jpg');
+      setSave(false);
     }
   }
 
   return (
     <>
       <Sketch setup={setup} draw={draw} />
-      <div className="box">
-          <div className={styles.cursor}
-            style = {{
-              left: (xPos-20)+'px',
-              top: (yPos-20)+'px'
-            }}
-          />
-      </div>
-      <div className={styles.currentColourBox}>
-          <div>The current brush colour is</div>
-          <ColourBox colourValue={colourBoxValue} />
-      </div>
     </>
   );
 };

@@ -118,62 +118,60 @@
   position: absolute;
 }
 
-.currentColour {
-  width: 40px;
-  height: 40px;
-  outline-style: solid;
-  outline-color: black;
-  display: inline-block;
-  margin: 10px;
+.sizeBox {
+  background-color: black;
+  border-radius: 50%;
 }
 
-.currentColourBox {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  justify-content: center;
+.sizeBoxOutline {
+  display: flex;
+  border-style: solid;
+  outline-color: black;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  height: 80px;
+  width: 80px;
 }
 
 .blackBox {
-  width: 30px;
-  height: 30px;
-  outline-style: solid;
-  outline-color: black;
+  border-style: solid;
   display: inline-block;
   margin: 10px;
   background-color: black;
+  border-radius: 50%;
+  border-width: 10px;
+  height: 50px;
+  width: 50px;
 }
 
 .purpleBox {
-  width: 30px;
-  height: 30px;
-  outline-style: solid;
-  outline-color: black;
   display: inline-block;
   margin: 10px;
   background-color: rgb(135,40,237);
+  border-radius: 50%;
+  border-width: 10px;
+  height: 50px;
+  width: 50px;
 }
 
 .blueBox {
-  width: 30px;
-  height: 30px;
-  outline-style: solid;
-  outline-color: black;
   display: inline-block;
   margin: 10px;
   background-color: rgb(25,175,250);
+  border-radius: 50%;
+  border-width: 10px;
+  height: 50px;
+  width: 50px;
 }
 
 .pinkBox {
-  width: 30px;
-  height: 30px;
-  outline-style: solid;
-  outline-color: black;
   display: inline-block;
   margin: 10px;
   background-color: rgb(222,22,212);
+  border-radius: 50%;
+  border-width: 10px;
+  height: 50px;
+  width: 50px;
 }
 
 @media (max-width: 600px) {
