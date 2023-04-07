@@ -141,8 +141,8 @@ export default function Home() {
 
           <Link href="./playroom">
             <div id="freeformLink" className={styles.card}>
-              <h2>Freeform Mode &rarr;</h2>
-              <p>This feature is still in development... Check back soon!</p>
+              <h2>Flower Bloom &rarr;</h2>
+              <p>Make the flower bloom and change its size and colour!</p>
             </div>
           </Link>
 

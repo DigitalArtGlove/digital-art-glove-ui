@@ -5,6 +5,9 @@ import styles from '../styles/Canvas.module.css'
 import Sketch from './sketch'
 import ColourBox from './colourBox';
 import SizeBox from './sizeBox';
+import SaveIcon from '../public/saveIcon.svg';
+import ClearIcon from '../public/clearIcon.svg';
+import EraseIcon from '../public/eraseIcon.svg';
 
 const URL_WEB_SOCKET1 = 'ws://localhost:8765/';
 const URL_WEB_SOCKET2 = 'ws://localhost:8766/';
@@ -188,10 +191,20 @@ export default function Canvas() {
             <SizeBox pos={pos} />
         </div>
         <div>
-          <button id="clearButton" className={styles.clearButton} onClick={() => setClearToggle(!clearToggle)}>Clear</button>
+          <div id="clearButton" className={styles.clearButton} onClick={() => setClearToggle(!clearToggle)}>
+            <img src={ClearIcon} alt="clear" />
+          </div>
         </div>
         <div>
-          <button id="saveButton" className={styles.saveButton} onClick={() => setSaveToggle(!saveToggle)}>Save</button>
+          <div id="saveButton" className={styles.saveButton} onClick={() => setSaveToggle(!saveToggle)}>
+            <img src={SaveIcon} alt="save" />
+          </div>
+        </div>
+        <div className={styles.eraseButton}
+          style = {{
+              color: erase ? 'black' : 'lightgray',
+          }}>
+            <img src={EraseIcon} alt="erase indicator" />
         </div>
       </div>
       

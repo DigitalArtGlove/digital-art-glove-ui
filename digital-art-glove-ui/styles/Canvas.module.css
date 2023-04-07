@@ -123,6 +123,7 @@
     align-items: center;
     text-align: center;
     width: 80px;
+    margin: 10px;
   }
 
   .currentSizeBox {
@@ -132,6 +133,7 @@
     text-align: center;
     width: 80px;
     height: 80px;
+    margin: 10px;
   }
 
   .cursor {
@@ -146,16 +148,24 @@
   .clearButton {
     cursor: pointer;
     padding: 10px;
-    border-style: solid;
-    border-radius: 25%;
-    outline-width: 2px;
     margin: 10px;
-    background-color: #f9f9f9;
+    width: 80px;
+    height: 80px;
   }
 
   .saveButton {
     cursor: pointer;
+    padding: 10px;
     margin: 10px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .eraseButton {
+    padding: 10px;
+    margin: 10px;
+    width: 80px;
+    height: 80px;
   }
 
   @media (max-width: 600px) {

@@ -26,6 +26,36 @@ const ColourBox = (props) => {
           borderStyle: colourValue == 3 ? 'solid' : 'none',
         }}>
       </div>
+      {/* <div className={styles.redBox}
+        style = {{
+          borderStyle: colourValue == 1 ? 'solid' : 'none',
+        }}>
+      </div>
+      <div className={styles.orangeBox}
+        style = {{
+          borderStyle: colourValue == 1 ? 'solid' : 'none',
+        }}>
+      </div>
+      <div className={styles.yellowBox}
+        style = {{
+          borderStyle: colourValue == 1 ? 'solid' : 'none',
+        }}>
+      </div>
+      <div className={styles.greenBox}
+        style = {{
+          borderStyle: colourValue == 1 ? 'solid' : 'none',
+        }}>
+      </div>
+      <div className={styles.darkBlueBox}
+        style = {{
+          borderStyle: colourValue == 1 ? 'solid' : 'none',
+        }}>
+      </div>
+      <div className={styles.blueBox}
+        style = {{
+          borderStyle: colourValue == 2 ? 'solid' : 'none',
+        }}>
+      </div> */}
     </div>
   );
 }
