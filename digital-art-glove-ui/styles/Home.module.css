@@ -133,13 +133,19 @@
   width: 80px;
 }
 
+.colourContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .blackBox {
-  border-style: solid;
   display: inline-block;
   margin: 10px;
   background-color: black;
   border-radius: 50%;
-  border-width: 10px;
+  border-width: 3px;
   height: 50px;
   width: 50px;
 }
@@ -149,7 +155,7 @@
   margin: 10px;
   background-color: rgb(135,40,237);
   border-radius: 50%;
-  border-width: 10px;
+  border-width: 3px;
   height: 50px;
   width: 50px;
 }
@@ -159,7 +165,7 @@
   margin: 10px;
   background-color: rgb(25,175,250);
   border-radius: 50%;
-  border-width: 10px;
+  border-width: 3px;
   height: 50px;
   width: 50px;
 }
@@ -169,7 +175,7 @@
   margin: 10px;
   background-color: rgb(222,22,212);
   border-radius: 50%;
-  border-width: 10px;
+  border-width: 3px;
   height: 50px;
   width: 50px;
 }

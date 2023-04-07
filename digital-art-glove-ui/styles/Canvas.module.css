@@ -118,14 +118,20 @@
   }
   
   .currentColourBox {
-    /* position: absolute; */
-    top: 30px;
     left: 30px;
     justify-content: center;
     align-items: center;
     text-align: center;
     width: 80px;
-    height: 100px;
+  }
+
+  .currentSizeBox {
+    left: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80px;
+    height: 80px;
   }
 
   .cursor {

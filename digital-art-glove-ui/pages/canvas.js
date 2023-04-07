@@ -182,7 +182,7 @@ export default function Canvas() {
       
       <div className={styles.sidebar}>
         <div className={styles.currentColourBox}>
-            <ColourBox colourValue={colourIndex} pos={pos} />
+            <ColourBox colourValue={colourIndex} />
         </div>
         <div className={styles.currentSizeBox}>
             <SizeBox pos={pos} />
