@@ -4,14 +4,12 @@ import EraseIcon from './eraseIcon';
 
 const sizeBox = (props) => {
   let box = null;
-
-  //replace with sensor data --> double flex activation + IMU roll for size
-  let size = Math.min(Math.max((props.pos[0]-300), 5), 65);
+  let size = props.size;
 
   box = <div className={styles.sizeBox}
     style = {{
-      width: (size)+'px',
-      height: (size)+'px'
+      width: {size}+'px',
+      height: {size}+'px'
     }}></div>;
 
   if (props.erase) {

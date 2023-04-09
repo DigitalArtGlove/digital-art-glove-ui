@@ -20,7 +20,7 @@ const MySketch = (data) => {
 
   const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
 
-  let size = Math.min(Math.max(data.pos[0]-300, 5), 65);
+  let size = data.size;
 
   useEffect(()=> {
     setClear(true);

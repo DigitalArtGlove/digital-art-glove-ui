@@ -46,6 +46,7 @@ export default function Canvas() {
   const [update, setUpdate] = React.useState(false);
 
   const [pos, setPos] = React.useState([0,0]);
+  const [pitchVal, setPitchVal] = React.useState(0);
 
   const [select, setSelect] = React.useState(false);
   const [erase, setErase] = React.useState(false);
@@ -65,7 +66,6 @@ export default function Canvas() {
   const router = useRouter()
 
   const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
-
 
   useEffect(() => {
     const wsClient1 = new WebSocket(URL_WEB_SOCKET1);
@@ -127,6 +127,10 @@ export default function Canvas() {
           setChangeColour(false);
           setCurrentChangeColourState(false);
         }
+        if (serialData[pitch]) {
+          setPitchVal(serialData[pitch]);
+          // console.log(serialData[roll]);
+        }
       };
     }
   }, [ws2]);
@@ -177,6 +181,8 @@ export default function Canvas() {
       }
     },[hover1, hover2, hover3, select]);
 
+  let brushSize = Math.min(Math.max(5,Number(pitchVal)-20),65);
+
   if (drawReady) {
     return (
       <div className={styles.container}>
@@ -206,7 +212,7 @@ export default function Canvas() {
           </div>
           <div className={styles.currentSizeBox}>
             {/* replace with size*/}
-            <SizeBox pos={pos} erase={erase}/>
+            <SizeBox size={brushSize} erase={erase}/>
           </div>
           <div id="clearButton" className={styles.clearButton} onClick={() => setClearToggle(!clearToggle)}>
             <ClearIcon />
@@ -223,7 +229,8 @@ export default function Canvas() {
               update={update} 
               pos={pos} 
               select={select} 
-              erase={erase} 
+              erase={erase}
+              size={brushSize}
               colourIndex={colourIndex} 
               clearToggle={clearToggle}
               saveToggle={saveToggle}
