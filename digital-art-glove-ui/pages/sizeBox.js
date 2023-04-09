@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/Home.module.css'
+import EraseIcon from './eraseIcon';
 
 const sizeBox = (props) => {
   let box = null;
@@ -13,15 +14,23 @@ const sizeBox = (props) => {
       height: (size)+'px'
     }}></div>;
 
-  return (
-    <div className={styles.sizeBoxOutline}>
-      <div className={styles.sizeBox}
-      style = {{
-        width: (size)+'px',
-        height: (size)+'px'
-      }}></div>
-    </div>
-  );
+  if (props.erase) {
+    return (
+      <div className={styles.sizeBoxOutline}>
+        <EraseIcon className={styles.eraseButton}/>
+      </div>
+    )
+  } else {
+    return (
+      <div className={styles.sizeBoxOutline}>
+        <div className={styles.sizeBox}
+        style = {{
+          width: (size)+'px',
+          height: (size)+'px'
+        }}></div>
+      </div>
+    );
+  }
 }
 
 export default sizeBox;

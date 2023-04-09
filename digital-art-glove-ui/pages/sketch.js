@@ -15,7 +15,7 @@ const MySketch = (data) => {
   const [prevPrevPos, setPrevPrevPos] = React.useState(null);
   
   const [clear, setClear] = React.useState(false);
-  const [save, setSave] = React.useState(false);
+  const [save, setSave] = React.useState(false); 
   const [notStartUp, setNotStartUp] = React.useState(false);
 
   const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
@@ -49,7 +49,7 @@ const MySketch = (data) => {
     p5.stroke(rVal, gVal, bVal);
     p5.strokeWeight(size);
 
-    if (data.update && !data.select && !data.erase && prevPrevPos != null) {
+    if (data.update && data.select && !data.erase && prevPrevPos != null) {
       
       p5.noFill();
       p5.beginShape();

@@ -9,6 +9,8 @@ const URL_WEB_SOCKET1 = 'ws://localhost:8765/';
 const URL_WEB_SOCKET2 = 'ws://localhost:8766/';
 
 const middle_force = 5;
+const x_coord = 0;
+const y_coord = 1;
 const coordRes = Math.pow(2,10);
 
 export default function Home() {
@@ -16,12 +18,12 @@ export default function Home() {
   const [ws1, setWs1] = React.useState(null);
   const [ws2, setWs2] = React.useState(null);
 
+  const [pos, setPos] = React.useState([0,0]);
+
   const [select, setSelect] = React.useState(false);
+
   const [hover1, setHover1] = React.useState(false);
   const [hover2, setHover2] = React.useState(false);
-  
-  const [xPos, setxPos] = React.useState(0);
-  const [yPos, setyPos] = React.useState(0);
 
   const router = useRouter()
   
@@ -30,9 +32,9 @@ export default function Home() {
     const wsClient1 = new WebSocket(URL_WEB_SOCKET1);
     wsClient1.onopen = () => {
       setWs1(wsClient1);
-      console.log("ws open\n");
+      console.log("ws 1 open\n");
     };
-    wsClient1.onclose = () => console.log("ws closed\n");
+    wsClient1.onclose = () => console.log("ws 1 closed\n");
     return () => {
       wsClient1.close();
     };
@@ -50,26 +52,23 @@ export default function Home() {
     };
   }, []);
 
-  // get cv data
   useEffect(() => {
     if (ws1) {
       ws1.onmessage = (evt) => {
-        // console.log(evt.data);
-        const d = evt.data.split(" ");
-        setxPos(Number(d[0]/coordRes*window.innerWidth));
-        setyPos(Number(d[1]/coordRes*window.innerHeight));
+        const cvData = evt.data.split(" ");
+        setPos(
+          [Number(cvData[x_coord]/coordRes*window.innerWidth),
+          Number(cvData[y_coord]/coordRes*window.innerHeight)]
+        );
       };
     }
   }, [ws1]);
 
-  // get select from force sensor
   useEffect(() => {
     if (ws2) {
       ws2.onmessage = (evt) => {
-        // console.log(evt);
-        const d = evt.data.split(" ");
-
-        if (d[middle_force] > 200) {
+        const serialData = evt.data.split(" ");
+        if (serialData[middle_force] > 125) {
           setSelect(true);
         } else {
           setSelect(false);
@@ -82,18 +81,17 @@ export default function Home() {
   useEffect(() => {
     let elem1 = document.getElementById("canvasLink");
     let rect1 = elem1.getBoundingClientRect();
-    // console.log(rect1);
     let elem2 = document.getElementById("freeformLink");
     let rect2 = elem2.getBoundingClientRect();
 
-    if (xPos > rect1.x && xPos < (rect1.x + rect1.width) && yPos > rect1.y && yPos < (rect1.y + rect1.height)) {
+    if (pos[x_coord] > rect1.x && pos[x_coord] < (rect1.x + rect1.width) && pos[y_coord] > rect1.y && pos[y_coord] < (rect1.y + rect1.height)) {
       setHover1(true);
     }
 
-    if (xPos > rect2.x && xPos < (rect2.x + rect2.width) && yPos > rect2.y && yPos < (rect2.y + rect2.height)) {
+    if (pos[x_coord] > rect2.x && pos[x_coord] < (rect2.x + rect2.width) && pos[y_coord] > rect2.y && pos[y_coord] < (rect2.y + rect2.height)) {
       setHover2(true);
     }
-  }, [xPos, yPos])
+  }, [pos[x_coord], pos[y_coord]]);
 
   //redirect to canvas or freeform
   useEffect(() => {
@@ -101,7 +99,7 @@ export default function Home() {
       router.push('/canvas');
     }
     if (hover2 && select) {
-      router.push('/playroom');
+      router.push('/freeform');
     }
   },[hover1, hover2, select]);
 
@@ -121,8 +119,8 @@ export default function Home() {
         <div className="box">
             <div className={styles.cursor}
               style = {{
-                left: xPos+'px',
-                top: yPos+'px'
+                left: (pos[0]-20)+'px',
+                top: (pos[1]-20)+'px'
               }}
             />
         </div>
@@ -135,17 +133,16 @@ export default function Home() {
           <Link href="./canvas">
             <div id="canvasLink" className={styles.card}>
               <h2>Art Mode &rarr;</h2>
-              <p>Create freeform art on a blank canvas</p>
+              <p>Paint a beautiful picture on a blank canvas!</p>
             </div>
           </Link>
 
-          <Link href="./playroom">
+          <Link href="./freeform">
             <div id="freeformLink" className={styles.card}>
-              <h2>Flower Bloom &rarr;</h2>
-              <p>Make the flower bloom and change its size and colour!</p>
+              <h2>Freeform Mode &rarr;</h2>
+              <p>Create some abstract art by moving objects around!</p>
             </div>
           </Link>
-
         </div>
 
       </main>

@@ -3,7 +3,7 @@
 }
 
 .main {
-  min-height: 100vh;
+  min-height: 90vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -127,10 +127,18 @@
   display: flex;
   border-style: solid;
   outline-color: black;
+  border-width: 3px;
   align-items: center;
   justify-content: center;
-  height: 80px;
+  height: 75px;
+  width: 75px;
+}
+
+.eraseButton {
+  padding: 10px;
+  margin: 10px;
   width: 80px;
+  height: 80px;
 }
 
 .colourContainer {
@@ -142,51 +150,51 @@
 
 .blackBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: black;
   border-radius: 50%;
-  border-width: 3.5px;
-  height: 50px;
-  width: 50px;
-  border-color: #50c750;
+  border-width: 5px;
+  height: 40px;
+  width: 40px;
+  border-color: #ababab;
 }
 
 .purpleBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: rgb(135,40,237);
   border-radius: 50%;
-  border-width: 3.5px;
-  height: 50px;
-  width: 50px;
-  border-color: #50c750;
+  border-width: 5px;
+  height: 40px;
+  width: 40px;
+  border-color: #ababab;
 }
 
 .blueBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: rgb(25,175,250);
   border-radius: 50%;
-  border-width: 3.5px;
-  height: 50px;
-  width: 50px;
-  border-color: #50c750;
+  border-width: 5px;
+  height: 40px;
+  width: 40px;
+  border-color: #ababab;
 }
 
 .pinkBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: rgb(222,22,212);
   border-radius: 50%;
-  border-width: 3.5px;
-  height: 50px;
-  width: 50px;
-  border-color: #50c750;
+  border-width: 5px;
+  height: 40px;
+  width: 40px;
+  border-color: #ababab;
 }
 
 .redBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: rgb(255, 0, 0);
   border-radius: 50%;
   border-width: 3.5px;
@@ -197,45 +205,45 @@
 
 .orangeBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: rgb(255, 102, 0);
   border-radius: 50%;
   border-width: 3.5px;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-color: #50c750;
 }
 
 .yellowBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: #ffff2c;
   border-radius: 50%;
   border-width: 3.5px;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-color: #50c750;
 }
 
 .greenBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: rgb(0, 153, 51);
   border-radius: 50%;
   border-width: 3.5px;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-color: #50c750;
 }
 
 .darkBlueBox {
   display: inline-block;
-  margin: 10px;
+  margin: 7px;
   background-color: rgb(0, 51, 153);
   border-radius: 50%;
   border-width: 3.5px;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-color: #50c750;
 }
 

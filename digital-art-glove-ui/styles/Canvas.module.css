@@ -1,14 +1,9 @@
 .container {
     padding: 2 2rem;
   }
-
-  .canvas {
-    /* padding: 10px; */
-    /* background-color: #eaeaea; */
-  }
   
   .main {
-    /* min-height: 90vh; */
+    min-height: 90vh;
     /* padding:10px; */
     flex: 1;
     display: flex;
@@ -114,7 +109,11 @@
   }
 
   .sidebar{
+    display: flex;
+    flex-direction: column;
     position: absolute;
+    align-items: center;
+    padding-top: 30px;
   }
   
   .currentColourBox {
@@ -123,17 +122,17 @@
     align-items: center;
     text-align: center;
     width: 80px;
-    margin: 10px;
+    margin: 17.5px;
   }
 
   .currentSizeBox {
-    left: 30px;
+    /* left: 30px; */
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 80px;
-    height: 80px;
-    margin: 10px;
+    width: 75px;
+    height: 75px;
+    margin: 20px;
   }
 
   .cursor {
@@ -145,20 +144,34 @@
     position: absolute;
   }
 
+  .backButton {
+    display: flex;
+    cursor: pointer;
+    padding: 10 px;
+    margin: 25px;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+  }
+
   .clearButton {
+    display: flex;
     cursor: pointer;
     padding: 10px;
-    margin: 10px;
-    width: 80px;
-    height: 80px;
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
   }
 
   .saveButton {
+    display: flex;
     cursor: pointer;
     padding: 10px;
-    margin: 10px;
-    width: 80px;
-    height: 80px;
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
   }
 
   .eraseButton {
