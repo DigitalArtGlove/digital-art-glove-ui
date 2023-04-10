@@ -125,28 +125,6 @@ const MyPlay = () => {
 
     //   drawFlower();
     }
-
-    useEffect(() => {
-      if (ws) {
-        ws.onmessage = (evt) => {
-          //console.log(evt);
-          const d = evt.data.split(" ");
-          setUpdate(true);
-          setYaw(Number(Math.abs(d[0])*5));
-          setPitch(Number(Math.abs(d[1])*5));
-          setRoll(Number(Math.abs([2])*5));
-
-          // setFlex(Math.floor(d[3]-1000)*2);
-          // setForce(Math.floor(d[6]*10));
-
-          setXPos(Math.floor(d[0]/coordRes*window.innerWidth));
-          setYPos(Math.floor(d[1]/coordRes*window.innerWidth));
-
-          //console.log(xPos, yPos)
-
-        };
-      }
-    }, [ws]);
   
     return (
       <Play setup={setup} draw={draw} />

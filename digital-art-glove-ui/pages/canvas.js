@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../styles/Canvas.module.css';
 import Sketch from './sketch';
-import Instructions from './instructions';
+import Instructions from './instruction/instructions';
 import ColourBox from './colourBox';
 import BackArrow from './backArrow';
 import SizeBox from './sizeBox';

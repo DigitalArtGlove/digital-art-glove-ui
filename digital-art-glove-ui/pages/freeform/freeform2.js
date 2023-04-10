@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
+import Flower from './flower';
+
 import Head from 'next/head'
 import styles from '../../styles/Canvas.module.css'
 import BackArrow from '../backArrow';
@@ -181,7 +183,11 @@ export default function Canvas() {
             </div>
            
             <div className={styles.main}>
-
+                <Flower 
+                  pos={pos}
+                  clearToggle={clearToggle}
+                  saveToggle={saveToggle}
+                />
             </div>
             <footer className={styles.footer}>
             Created by Beatrice Tam, Kaylee Jung, Mika Nogami, and Josiann Zhou

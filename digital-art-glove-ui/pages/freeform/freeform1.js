@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import Head from 'next/head'
-import styles from '../../styles/Canvas.module.css'
+import Head from 'next/head';
+import styles from '../../styles/Canvas.module.css';
+import Kaleidoscope from './kaleidoscope';
 import BackArrow from '../backArrow';
 import SaveIcon from '../saveIcon';
 import ClearIcon from '../clearIcon';
@@ -38,6 +39,8 @@ export default function Canvas() {
   const [pos, setPos] = React.useState([0,0]);
 
   const [select, setSelect] = React.useState(false);
+  const [ringPress, setRingPress] = React.useState(false);
+  const [pinkyPress, setPinkyPress] = React.useState(false);
 
   const [hover1, setHover1] = React.useState(false);
   const [hover2, setHover2] = React.useState(false);
@@ -95,19 +98,16 @@ export default function Canvas() {
         } else {
           setSelect(false);
         }
-
         if (serialData[ring_force] > 125) {
-          setErase(true);
+          setRingPress(true);
         } else {
-          setErase(false);
+          setRingPress(false);
         }
-
         // replace with pinky force sensor
         if (serialData[pinky_force] > 125) {
-          setChangeColour(true);
+          setPinkyPress(true);
         } else {
-          setChangeColour(false);
-          setCurrentChangeColourState(false);
+          setPinkyPress(false);
         }
       };
     }
@@ -181,7 +181,13 @@ export default function Canvas() {
             </div>
            
             <div className={styles.main}>
-
+                <Kaleidoscope 
+                  pos={pos} 
+                  ring={ringPress} 
+                  pinky={pinkyPress} 
+                  clearToggle={clearToggle}
+                  saveToggle={saveToggle}
+                />
             </div>
             <footer className={styles.footer}>
             Created by Beatrice Tam, Kaylee Jung, Mika Nogami, and Josiann Zhou

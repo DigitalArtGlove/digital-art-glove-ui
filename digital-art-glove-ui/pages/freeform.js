@@ -36,6 +36,9 @@ export default function Freeform() {
 
   const [select, setSelect] = React.useState(false);
 
+  const [ringPress, setRingPress] = React.useState(false);
+  const [pinkyPress, setPinkyPress] = React.useState(false);
+
   const [hover1, setHover1] = React.useState(false);
   const [hover2, setHover2] = React.useState(false);
   const [hover3, setHover3] = React.useState(false);
@@ -178,8 +181,8 @@ export default function Freeform() {
         <div className={styles.grid}>
           <Link href="./freeform/freeform1">
             <div id="freeform1" className={styles.card}>
-              <h2>Kaleidescope</h2>
-              <p>Create freeform art on a blank canvas</p>
+              <h2>Kaleidoscope</h2>
+              <p>Create and manipulate a kaleidoscope!</p>
             </div>
           </Link>
           
