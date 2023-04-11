@@ -7,8 +7,9 @@ import styles from '../../styles/Home.module.css';
 import Select from './select.png';
 import Erase from './erase.png';
 import Colour from './colourChange.png';
-import Size from './sizeChange.png';
+// import Size from './sizeChange.png';
 import Pause from './pauseDraw.png';
+import Size from './openHandSizeChange.png';
 
 export default function Instructions () {
 
@@ -75,7 +76,7 @@ export default function Instructions () {
                     <div className={styles.instruction}>
                         <div className={styles.instructionBox}>
                             <h2 className={styles.subtitle}>
-                                To select, point at the screen and touch your middle finger to your thumb once.
+                                To select, touch your middle finger to your thumb once.
                             </h2>
                             <h2 className={styles.subtitle}>
                                 To draw, hold your middle finger to your thumb.
@@ -101,7 +102,7 @@ export default function Instructions () {
                     <div className={styles.instruction}>
                         <div className={styles.instructionBox}>
                             <h2 className={styles.subtitle}>
-                                To pause drawing, let go of your fingers and open your hand.
+                                To stop drawing, let go of your fingers and open your hand.
                             </h2>
                         </div>
                         <div className={styles.instructionImage}>
@@ -126,9 +127,9 @@ export default function Instructions () {
                             <h2 className={styles.subtitle}>
                                 To erase, press and hold your ring finger to your thumb.
                             </h2>
-                            <h2 className={styles.subtitle}>
+                            {/* <h2 className={styles.subtitle}>
                                 Move the cursor over the parts of the drawing you want to erase.
-                            </h2>
+                            </h2> */}
                         </div>
                         <div className={styles.instructionImage}>
                             <Image src={Erase} alt='erase drawing'/>
@@ -173,7 +174,7 @@ export default function Instructions () {
                     <div className={styles.instruction}>
                         <div className={styles.instructionBox}>
                             <h2 className={styles.subtitle}>
-                                To change the size of the brush, make a fist with your hand.
+                                To change the size of the brush, open your hand.
                             </h2>
                             <h2 className={styles.subtitle}>
                                 Rotate clockwise to increase the size and counter-clockwise to decrease.
