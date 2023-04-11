@@ -126,19 +126,16 @@ export default function Canvas() {
 
     if (pos[x_coord] > rect1.x && pos[x_coord] < (rect1.x + rect1.width) && pos[y_coord] > rect1.y && pos[y_coord] < (rect1.y + rect1.height)) {
       setHover1(true);
-      // console.log('back')
     } else {
       setHover1(false);
     }
     if (pos[x_coord] > rect2.x && pos[x_coord] < (rect2.x + rect2.width) && pos[y_coord] > rect2.y && pos[y_coord] < (rect2.y + rect2.height)) {
       setHover2(true);
-      // console.log('clear')
     } else {
       setHover2(false);
     }
     if (pos[x_coord] > rect3.x && pos[x_coord] < (rect3.x + rect3.width) && pos[y_coord] > rect3.y && pos[y_coord] < (rect3.y + rect3.height)) {
       setHover3(true);
-      // console.log('save')
     } else {
       setHover3(false);
     }
@@ -177,14 +174,14 @@ export default function Canvas() {
             <div className={styles.sidebar}>
                 <Link href="./">
                     <div id="backButton" className={styles.backButton}>
-                    <BackArrow />
+                    <BackArrow colour={hover1 ? 'rgb(135,40,237)' : 'black'}/>
                     </div>
                 </Link>
                 <div id="clearButton" className={styles.clearButton} onClick={() => setClearToggle(!clearToggle)}>
-                    <ClearIcon />
+                    <ClearIcon colour={hover2 ? 'rgb(135,40,237)' : 'black'}/>
                 </div>
                 <div id="saveButton" className={styles.saveButton} onClick={() => setSaveToggle(!saveToggle)}>
-                    <SaveIcon />
+                    <SaveIcon colour={hover3 ? 'rgb(135,40,237)' : 'black'}/>
                 </div>
             </div>
            

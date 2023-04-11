@@ -135,14 +135,24 @@ export default function Home() {
         </p>
         <div className={styles.grid}>
           <Link href="./canvas">
-            <div id="canvasLink" className={styles.card}>
+            <div id="canvasLink" className={styles.card}
+              style = {{
+                color: hover1 ? 'rgb(135,40,237)' : 'black',
+                borderColor: hover1 ? 'rgb(135,40,237)' : '#eaeaea'
+              }}
+            >
               <h2>Art Mode &rarr;</h2>
               <p>Paint a beautiful picture on a blank canvas!</p>
             </div>
           </Link>
 
           <Link href="./freeform">
-            <div id="freeformLink" className={styles.card}>
+            <div id="freeformLink" className={styles.card}
+              style = {{
+                color: hover2 ? 'rgb(135,40,237)' : 'black',
+                borderColor: hover2 ? 'rgb(135,40,237)' : '#eaeaea'
+              }}
+            >
               <h2>Freeform Mode &rarr;</h2>
               <p>Create some abstract art by moving objects around!</p>
             </div>
