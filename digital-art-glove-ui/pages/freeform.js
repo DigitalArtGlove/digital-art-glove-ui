@@ -57,7 +57,7 @@ export default function Freeform() {
   if (!check) {
     myInterval = setInterval(()=>{
       setCheck(true);
-    }, 1500);
+    }, 2250);
   }
 
   useEffect(() => {
@@ -241,7 +241,7 @@ export default function Freeform() {
                   borderColor: hover3 ? 'rgb(135,40,237)' : '#eaeaea'
                 }}
               >
-                <h2>Repel</h2>
+                <h2>Line Drawing</h2>
                 <p>Create freeform art on a blank canvas</p>
               </div>
             </Link>

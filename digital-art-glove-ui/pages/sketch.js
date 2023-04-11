@@ -38,7 +38,7 @@ const MySketch = (data) => {
     const height = (window.innerHeight)*0.92;
     const width = window.innerWidth;
     let c = p5.createCanvas(width, height).parent(canvasParentRef);
-    p5.background('white');
+    // p5.background('white');
   };
 
   const draw = (p5) => {

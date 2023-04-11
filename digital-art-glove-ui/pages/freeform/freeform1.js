@@ -59,7 +59,7 @@ export default function Canvas() {
   if (!check) {
     myInterval = setInterval(()=>{
       setCheck(true);
-    }, 1500);
+    }, 2250);
   }
 
   useEffect(() => {
@@ -136,9 +136,7 @@ export default function Canvas() {
   }, [ws2]);
 
   useEffect(() => {
-
     if(ready){
-
       let elem1 = document.getElementById("backButton");
       let rect1 = elem1.getBoundingClientRect();
       let elem2 = document.getElementById("clearButton");
@@ -162,7 +160,7 @@ export default function Canvas() {
         setHover3(false);
       }
     }
-  }, ready, [pos[x_coord], pos[y_coord]])
+  }, [ready, pos[x_coord], pos[y_coord]])
 
   //redirect to index, clear, save
   useEffect(() => {
@@ -198,7 +196,7 @@ export default function Canvas() {
             <div className={styles.sidebar}>
                 <Link href="./">
                     <div id="backButton" className={styles.backButton}>
-                    <BackArrow colour={hover1 ? 'rgb(135,40,237)' : 'black'}/>
+                      <BackArrow colour={hover1 ? 'rgb(135,40,237)' : 'black'}/>
                     </div>
                 </Link>
                 <div id="clearButton" className={styles.clearButton} onClick={() => setClearToggle(!clearToggle)}>

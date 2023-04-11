@@ -9,13 +9,8 @@ let y_coord = 1;
 const MyKaleidoscope = (data) => {
 
     const [pos, setPos] = React.useState([]);
-    const [yaw, setYaw] = React.useState(0);
-    const [pitch, setPitch] = React.useState(0);
-    const [roll, setRoll] = React.useState(0);
-    //const [flex, setFlex] = React.useState(0);
-    //const [force, setForce] = React.useState(0);
 
-    const [prevPos, setPrevPos] = React.useState(null);
+    const [prevPos, setPrevPos] = React.useState([]);
   
     const [clear, setClear] = React.useState(false);
     const [save, setSave] = React.useState(false); 
@@ -25,7 +20,7 @@ const MyKaleidoscope = (data) => {
     let angle = 360/lineofsym;
     let minbrush = 2;
     let maxbrush = 8;
-    let brush = 3;
+    let brush = 5;
     let colours = [28,74,120,158,201,220,255];
     let i = 0;
 
@@ -86,7 +81,7 @@ const MyKaleidoscope = (data) => {
             for (let i=0; i < lineofsym; i++) {
                 p5.rotate(angle);
                 p5.strokeWeight(brush);
-                p5.stroke(pos[x_coord], 120, 250);
+                p5.stroke(pos[x_coord]-20, 120, pos[y_coord]-20);
                 p5.line(mx, my, pmx, pmy);
                 p5.push();
                 p5.scale(1,-1);

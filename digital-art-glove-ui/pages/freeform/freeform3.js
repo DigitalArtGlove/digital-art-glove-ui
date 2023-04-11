@@ -4,6 +4,8 @@ import Link from 'next/link'
 
 import Head from 'next/head'
 import styles from '../../styles/Canvas.module.css'
+import Angle from './angleLine';
+
 import BackArrow from '../backArrow';
 import SaveIcon from '../saveIcon';
 import ClearIcon from '../clearIcon';
@@ -36,6 +38,7 @@ export default function Canvas() {
   const [update, setUpdate] = React.useState(false);
 
   const [pos, setPos] = React.useState([0,0]);
+  const [pitchVal, setPitchVal] = React.useState(0);
 
   const [select, setSelect] = React.useState(false);
 
@@ -56,7 +59,7 @@ export default function Canvas() {
   if (!check) {
     myInterval = setInterval(()=>{
       setCheck(true);
-    }, 1500);
+    }, 2250);
   }
 
   useEffect(() => {
@@ -117,19 +120,8 @@ export default function Canvas() {
         } else {
           setSelect(false);
         }
-
-        if (serialData[ring_force] > 125) {
-          setErase(true);
-        } else {
-          setErase(false);
-        }
-
-        // replace with pinky force sensor
-        if (serialData[pinky_force] > 125) {
-          setChangeColour(true);
-        } else {
-          setChangeColour(false);
-          setCurrentChangeColourState(false);
+        if (serialData[pitch]) {
+          setPitchVal(serialData[pitch]);
         }
       };
     }
@@ -162,7 +154,7 @@ export default function Canvas() {
           setHover3(false);
         }
       }
-    }, ready, [pos[x_coord], pos[y_coord]])
+    }, [ready, pos[x_coord], pos[y_coord]])
 
   //redirect to index, clear, save
   useEffect(() => {
@@ -210,7 +202,13 @@ export default function Canvas() {
             </div>
            
             <div className={styles.main}>
-
+              <Angle 
+                  select={select}
+                  pos={pos} 
+                  pitch={pitchVal}
+                  clearToggle={clearToggle}
+                  saveToggle={saveToggle}
+                />
             </div>
             <footer className={styles.footer}>
             Created by Beatrice Tam, Kaylee Jung, Mika Nogami, and Josiann Zhou

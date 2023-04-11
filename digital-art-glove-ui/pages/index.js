@@ -35,7 +35,7 @@ export default function Home() {
   if (!check) {
     myInterval = setInterval(()=>{
       setCheck(true);
-    }, 1500);
+    }, 2250);
   }
 
   useEffect(() => {

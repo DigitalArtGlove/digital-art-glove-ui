@@ -58,7 +58,7 @@ export default function Canvas() {
   if (!check) {
     myInterval = setInterval(()=>{
       setCheck(true);
-    }, 1500);
+    }, 2250);
   }
 
   useEffect(() => {
@@ -164,7 +164,7 @@ export default function Canvas() {
         setHover3(false);
       }
     }
-  }, ready, [pos[x_coord], pos[y_coord]])
+  }, [ready, pos[x_coord], pos[y_coord]])
 
   //redirect to index, clear, save
   useEffect(() => {
