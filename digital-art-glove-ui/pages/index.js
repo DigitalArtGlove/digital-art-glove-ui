@@ -86,10 +86,14 @@ export default function Home() {
 
     if (pos[x_coord] > rect1.x && pos[x_coord] < (rect1.x + rect1.width) && pos[y_coord] > rect1.y && pos[y_coord] < (rect1.y + rect1.height)) {
       setHover1(true);
+    } else {
+      setHover1(false);
     }
 
     if (pos[x_coord] > rect2.x && pos[x_coord] < (rect2.x + rect2.width) && pos[y_coord] > rect2.y && pos[y_coord] < (rect2.y + rect2.height)) {
       setHover2(true);
+    } else {
+      setHover2(false);
     }
   }, [pos[x_coord], pos[y_coord]]);
 

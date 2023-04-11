@@ -115,22 +115,32 @@ export default function Freeform() {
     if (pos[x_coord] > rect1.x && pos[x_coord] < (rect1.x + rect1.width) && pos[y_coord] > rect1.y && pos[y_coord] < (rect1.y + rect1.height)) {
       setHover1(true);
       // console.log('1')
+    } else {
+      setHover1(false);
     }
     if (pos[x_coord] > rect2.x && pos[x_coord] < (rect2.x + rect2.width) && pos[y_coord] > rect2.y && pos[y_coord] < (rect2.y + rect2.height)) {
       setHover2(true);
       // console.log('2')
+    } else {
+      setHover2(false);
     }
     if (pos[x_coord] > rect3.x && pos[x_coord] < (rect3.x + rect3.width) && pos[y_coord] > rect3.y && pos[y_coord] < (rect3.y + rect3.height)) {
       setHover3(true);
       // console.log('3')
+    } else {
+      setHover3(false);
     }
     if (pos[x_coord] > rect4.x && pos[x_coord] < (rect4.x + rect4.width) && pos[y_coord] > rect4.y && pos[y_coord] < (rect4.y + rect4.height)) {
       setHover4(true);
       // console.log('4')
+    } else {
+      setHover4(false);
     }
     if (pos[x_coord] > rect5.x && pos[x_coord] < (rect5.x + rect5.width) && pos[y_coord] > rect5.y && pos[y_coord] < (rect5.y + rect5.height)) {
       setHover5(true);
       // console.log('back')
+    } else {
+      setHover5(false);
     }
   }, [pos[x_coord], pos[y_coord]])
 
