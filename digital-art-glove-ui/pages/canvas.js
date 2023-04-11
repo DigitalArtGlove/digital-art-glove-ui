@@ -47,6 +47,8 @@ export default function Canvas() {
 
   const [pos, setPos] = React.useState([0,0]);
   const [pitchVal, setPitchVal] = React.useState(0);
+  const [middleFlexVal, setMiddleFlexVal] = React.useState(0);
+  const [ringFlexVal, setRingFlexVal] = React.useState(0);
 
   const [select, setSelect] = React.useState(false);
   const [erase, setErase] = React.useState(false);
@@ -66,6 +68,7 @@ export default function Canvas() {
   const router = useRouter()
 
   const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
+  const [brushSize, setBrushSize] = React.useState(10);
 
   useEffect(() => {
     const wsClient1 = new WebSocket(URL_WEB_SOCKET1);
@@ -129,7 +132,12 @@ export default function Canvas() {
         }
         if (serialData[pitch]) {
           setPitchVal(serialData[pitch]);
-          // console.log(serialData[roll]);
+        }
+        if (serialData[middle_flex]) {
+          setMiddleFlexVal(serialData[middle_flex]);
+        }
+        if (serialData[ring_flex]) {
+          setRingFlexVal(serialData[ring_flex]);
         }
       };
     }
@@ -181,7 +189,11 @@ export default function Canvas() {
       }
     },[hover1, hover2, hover3, select]);
 
-  let brushSize = Math.min(Math.max(5,Number(pitchVal)-20),65);
+  useEffect(() => {
+    if (middleFlexVal > 500 && ringFlexVal > 500) {
+      setBrushSize(Math.min(Math.max(5,Number(pitchVal)+20),65));
+    }
+  }, [middleFlexVal, ringFlexVal])
 
   if (drawReady) {
     return (

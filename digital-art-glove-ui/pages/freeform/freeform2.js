@@ -98,19 +98,19 @@ export default function Canvas() {
           setSelect(false);
         }
 
-        if (serialData[ring_force] > 125) {
-          setErase(true);
-        } else {
-          setErase(false);
-        }
+        // if (serialData[ring_force] > 125) {
+        //   setErase(true);
+        // } else {
+        //   setErase(false);
+        // }
 
-        // replace with pinky force sensor
-        if (serialData[pinky_force] > 125) {
-          setChangeColour(true);
-        } else {
-          setChangeColour(false);
-          setCurrentChangeColourState(false);
-        }
+        // // replace with pinky force sensor
+        // if (serialData[pinky_force] > 125) {
+        //   setChangeColour(true);
+        // } else {
+        //   setChangeColour(false);
+        //   setCurrentChangeColourState(false);
+        // }
       };
     }
   }, [ws2]);
