@@ -53,11 +53,12 @@ const MySketch = (data) => {
       
       p5.noFill();
       p5.beginShape();
-      p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
-      p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
-      p5.curveVertex(prevPos[x_coord], prevPos[y_coord]);
-      p5.curveVertex(data.pos[x_coord], data.pos[y_coord]);      
-      p5.curveVertex(data.pos[x_coord], data.pos[y_coord]);      
+      p5.line(data.pos[x_coord], data.pos[y_coord], prevPos[x_coord], prevPos[y_coord]);
+      // p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
+      // p5.curveVertex(prevPrevPos[x_coord], prevPrevPos[y_coord]);
+      // p5.curveVertex(prevPos[x_coord], prevPos[y_coord]);
+      // p5.curveVertex(data.pos[x_coord], data.pos[y_coord]);      
+      // p5.curveVertex(data.pos[x_coord], data.pos[y_coord]);      
       p5.endShape();
       
       setPrevPos(data.pos);
