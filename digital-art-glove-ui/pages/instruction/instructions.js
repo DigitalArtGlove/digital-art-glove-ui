@@ -15,6 +15,33 @@ export default function Instructions () {
     
     const [index, setIndex] = React.useState(0);
 
+    const [changeIndex, setChangeIndex] = React.useState(false);
+  
+    // let myInterval;
+
+    // useEffect(()=>{
+    //     if (!changeIndex) {
+    //         myInterval = setInterval(toggleIndex, 3500);
+    //     }
+    //     if (changeIndex){
+    //         if(index < 7){
+    //             setIndex(index+1);
+    //         } else {
+    //             clearInterval(myInterval);
+    //             location.reload();
+    //         }
+    //         toggleIndex();
+    //         console.log(index);
+    //     }
+    // },[changeIndex]);
+
+    // function toggleIndex () {
+    //     setChangeIndex(!changeIndex);
+    // }
+
+    // console.log(index);
+    // console.log(changeIndex);
+
     let myInterval = setInterval(() => {
         setIndex(index+1);
     }, 3500);
@@ -25,14 +52,6 @@ export default function Instructions () {
             location.reload();
         }
     },[index]);
-
-    // let i=0;
-    // while (i<7){
-    //     setInterval(()=>{
-    //         i++;
-    //         console.log(i);
-    //     },3000);
-    // }
 
     return (
         <div className={styles.container}>

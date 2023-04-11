@@ -50,14 +50,36 @@ export default function Canvas() {
 
   const router = useRouter()
 
+  const [check, setCheck] = React.useState(false);
+  const [ready, setReady] = React.useState(false);
+  
+  let myInterval;
+
+  if (!check) {
+    myInterval = setInterval(()=>{
+      setCheck(true);
+    }, 1500);
+  }
+
+  useEffect(() => {
+    if (check) {
+      clearInterval(myInterval);
+      if(!ready) {
+        location.reload();
+      }
+    }
+  },[check]);
+
   useEffect(() => {
     const wsClient1 = new WebSocket(URL_WEB_SOCKET1);
     wsClient1.onopen = () => {
       setWs1(wsClient1);
+      setReady(true);
       console.log("ws 1 open\n");
     };
     wsClient1.onclose = () => console.log("ws 1 closed\n");
     return () => {
+      setReady(false);
       wsClient1.close();
     };
   }, []);
@@ -117,29 +139,32 @@ export default function Canvas() {
 
   useEffect(() => {
 
-    let elem1 = document.getElementById("backButton");
-    let rect1 = elem1.getBoundingClientRect();
-    let elem2 = document.getElementById("clearButton");
-    let rect2 = elem2.getBoundingClientRect();
-    let elem3 = document.getElementById("saveButton");
-    let rect3 = elem3.getBoundingClientRect();
+    if(ready){
 
-    if (pos[x_coord] > rect1.x && pos[x_coord] < (rect1.x + rect1.width) && pos[y_coord] > rect1.y && pos[y_coord] < (rect1.y + rect1.height)) {
-      setHover1(true);
-    } else {
-      setHover1(false);
+      let elem1 = document.getElementById("backButton");
+      let rect1 = elem1.getBoundingClientRect();
+      let elem2 = document.getElementById("clearButton");
+      let rect2 = elem2.getBoundingClientRect();
+      let elem3 = document.getElementById("saveButton");
+      let rect3 = elem3.getBoundingClientRect();
+
+      if (pos[x_coord] > rect1.x && pos[x_coord] < (rect1.x + rect1.width) && pos[y_coord] > rect1.y && pos[y_coord] < (rect1.y + rect1.height)) {
+        setHover1(true);
+      } else {
+        setHover1(false);
+      }
+      if (pos[x_coord] > rect2.x && pos[x_coord] < (rect2.x + rect2.width) && pos[y_coord] > rect2.y && pos[y_coord] < (rect2.y + rect2.height)) {
+        setHover2(true);
+      } else {
+        setHover2(false);
+      }
+      if (pos[x_coord] > rect3.x && pos[x_coord] < (rect3.x + rect3.width) && pos[y_coord] > rect3.y && pos[y_coord] < (rect3.y + rect3.height)) {
+        setHover3(true);
+      } else {
+        setHover3(false);
+      }
     }
-    if (pos[x_coord] > rect2.x && pos[x_coord] < (rect2.x + rect2.width) && pos[y_coord] > rect2.y && pos[y_coord] < (rect2.y + rect2.height)) {
-      setHover2(true);
-    } else {
-      setHover2(false);
-    }
-    if (pos[x_coord] > rect3.x && pos[x_coord] < (rect3.x + rect3.width) && pos[y_coord] > rect3.y && pos[y_coord] < (rect3.y + rect3.height)) {
-      setHover3(true);
-    } else {
-      setHover3(false);
-    }
-  }, [pos[x_coord], pos[y_coord]])
+  }, ready, [pos[x_coord], pos[y_coord]])
 
   //redirect to index, clear, save
   useEffect(() => {
@@ -154,6 +179,7 @@ export default function Canvas() {
     }
   },[hover1, hover2, hover3, select]);
 
+  if(ready){
     return (
         <div className={styles.container}>
             <Head>
@@ -197,4 +223,23 @@ export default function Canvas() {
             </footer>
         </div>
     )
+  } else {
+    return(
+      <div className={styles.container}>
+        <Head>
+            <title>Digital Art Glove</title>
+            <meta name="description" content="UI for 2022 IGEN 430 Digital Art Glove Project" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <main className={styles.main} id="main">
+            <div className={styles.instruction}>
+                <h1 className={styles.title}>
+                    Creating your canvas...
+                </h1>
+            </div>
+        </main>
+      </div>
+    )
+  } 
 }

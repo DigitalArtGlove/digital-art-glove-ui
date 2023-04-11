@@ -32,12 +32,6 @@ const y_coord = 1;
 // Same as coordRes used in CV file that determines the resolution (number of digits) we send to front-end
 const coordRes = Math.pow(2,10);
 
-// function reloadPage() {
-//   useEffect (() => {
-//     location.reload();
-//   },[]);
-// }
-
 export default function Canvas() {
 
   const [ws1, setWs1] = React.useState(null);
@@ -63,7 +57,7 @@ export default function Canvas() {
   const [clearToggle, setClearToggle] = React.useState(false);
   const [saveToggle, setSaveToggle] = React.useState(false);
 
-  const [drawReady, setDrawReady] = React.useState(false);
+  const [ready, setReady] = React.useState(false);
 
   const router = useRouter()
 
@@ -75,12 +69,12 @@ export default function Canvas() {
     wsClient1.onopen = () => {
       setWs1(wsClient1);
       console.log("ws 1 open\n");
-      setDrawReady(true);
+      setReady(true);
     };
     wsClient1.onclose = () => console.log("ws 1 closed\n");
     return () => {
       wsClient1.close();
-      setDrawReady(false);
+      setReady(false);
     };ç
   }, []);
 
@@ -152,7 +146,7 @@ export default function Canvas() {
 
     useEffect(() => {
 
-      if(drawReady) {
+      if(ready) {
 
         let elem1 = document.getElementById("backButton");
         let rect1 = elem1.getBoundingClientRect();
@@ -177,7 +171,7 @@ export default function Canvas() {
           setHover3(false);
         }
       }
-    }, [drawReady, pos[x_coord], pos[y_coord]])
+    }, [ready, pos[x_coord], pos[y_coord]])
   
     //redirect to index, clear, save
     useEffect(() => {
@@ -192,17 +186,13 @@ export default function Canvas() {
       }
     },[hover1, hover2, hover3, select]);
 
-    useEffect(()=>{
-      console.log(clearToggle);
-    },[clearToggle])
-
   useEffect(() => {
     if (middleFlexVal > 500 && ringFlexVal > 500) {
       setBrushSize(Math.min(Math.max(5,Number(pitchVal)+20),65));
     }
   }, [middleFlexVal, ringFlexVal])
 
-  if (drawReady) {
+  if (ready) {
     return (
       <div className={styles.container}>
         <Head>
