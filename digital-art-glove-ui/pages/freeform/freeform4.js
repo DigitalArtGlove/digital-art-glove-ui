@@ -4,6 +4,8 @@ import Link from 'next/link'
 
 import Head from 'next/head'
 import styles from '../../styles/Canvas.module.css'
+
+import Collect from './collect';
 import BackArrow from '../backArrow';
 import SaveIcon from '../saveIcon';
 import ClearIcon from '../clearIcon';
@@ -42,6 +44,10 @@ export default function Canvas() {
   const [hover1, setHover1] = React.useState(false);
   const [hover2, setHover2] = React.useState(false);
   const [hover3, setHover3] = React.useState(false);
+
+  const [collect, setCollect] = React.useState(false);
+  const [middleFlexVal, setMiddleFlexVal] = React.useState(0);
+  const [ringFlexVal, setRingFlexVal] = React.useState(0);
 
   const [clearToggle, setClearToggle] = React.useState(false);
   const [saveToggle, setSaveToggle] = React.useState(false);
@@ -117,19 +123,11 @@ export default function Canvas() {
         } else {
           setSelect(false);
         }
-
-        if (serialData[ring_force] > 125) {
-          setErase(true);
-        } else {
-          setErase(false);
+        if (serialData[middle_flex]) {
+          setMiddleFlexVal(serialData[middle_flex]);
         }
-
-        // replace with pinky force sensor
-        if (serialData[pinky_force] > 125) {
-          setChangeColour(true);
-        } else {
-          setChangeColour(false);
-          setCurrentChangeColourState(false);
+        if (serialData[ring_flex]) {
+          setRingFlexVal(serialData[ring_flex]);
         }
       };
     }
@@ -177,6 +175,14 @@ export default function Canvas() {
     }
   },[hover1, hover2, hover3, select]);
 
+  useEffect(() => {
+    if (middleFlexVal > 500 && ringFlexVal > 500) {
+      setCollect(true);
+    } else {
+      setCollect(false);
+    }
+  }, [middleFlexVal, ringFlexVal])
+
   if(ready){
     return (
         <div className={styles.container}>
@@ -210,7 +216,13 @@ export default function Canvas() {
             </div>
            
             <div className={styles.main}>
-
+                <Collect
+                  select={select}
+                  pos={pos}
+                  collect={collect} 
+                  clearToggle={clearToggle}
+                  saveToggle={saveToggle}
+                />
             </div>
             <footer className={styles.footer}>
             Created by Beatrice Tam, Kaylee Jung, Mika Nogami, and Josiann Zhou

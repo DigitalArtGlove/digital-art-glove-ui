@@ -12,8 +12,6 @@ const MyAngle = (data) => {
     const [yaw, setYaw] = React.useState(0);
     const [pitch, setPitch] = React.useState(0);
     const [roll, setRoll] = React.useState(0);
-    //const [flex, setFlex] = React.useState(0);
-    //const [force, setForce] = React.useState(0);
 
     const [prevPos, setPrevPos] = React.useState(null);
   
@@ -55,7 +53,7 @@ const MyAngle = (data) => {
         const height = window.innerHeight;
         const width = window.innerWidth;
         
-        if (!data.select) {
+        if (data.select) {
             p5.translate(pos[x_coord], pos[y_coord]);
             // p5.rotate(angle);
             p5.strokeWeight(lineThickness);

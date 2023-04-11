@@ -131,8 +131,8 @@ export default function Freeform() {
       let rect2 = elem2.getBoundingClientRect();
       let elem3 = document.getElementById("freeform3");
       let rect3 = elem3.getBoundingClientRect();
-      let elem4 = document.getElementById("freeform4");
-      let rect4 = elem4.getBoundingClientRect();
+      // let elem4 = document.getElementById("freeform4");
+      // let rect4 = elem4.getBoundingClientRect();
       let elem5 = document.getElementById("backButton");
       let rect5 = elem5.getBoundingClientRect();
 
@@ -151,11 +151,11 @@ export default function Freeform() {
       } else {
         setHover3(false);
       }
-      if (pos[x_coord] > rect4.x && pos[x_coord] < (rect4.x + rect4.width) && pos[y_coord] > rect4.y && pos[y_coord] < (rect4.y + rect4.height)) {
-        setHover4(true);
-      } else {
-        setHover4(false);
-      }
+      // if (pos[x_coord] > rect4.x && pos[x_coord] < (rect4.x + rect4.width) && pos[y_coord] > rect4.y && pos[y_coord] < (rect4.y + rect4.height)) {
+      //   setHover4(true);
+      // } else {
+      //   setHover4(false);
+      // }
       if (pos[x_coord] > rect5.x && pos[x_coord] < (rect5.x + rect5.width) && pos[y_coord] > rect5.y && pos[y_coord] < (rect5.y + rect5.height)) {
         setHover5(true);
       } else {
@@ -175,13 +175,13 @@ export default function Freeform() {
     if (hover3 && select) {
       router.push('/freeform/freeform3');
     }
-    if (hover4 && select) {
-      router.push('/freeform/freeform4');
-    }
+    // if (hover4 && select) {
+    //   router.push('/freeform/freeform4');
+    // }
     if (hover5 && select) {
       router.push('/freeform');
     }
-  },[hover1, hover2, hover3, hover4, hover5, select]);
+  },[hover1, hover2, hover3, hover5, select]);
 
   if (ready) {
     return (
@@ -246,7 +246,7 @@ export default function Freeform() {
               </div>
             </Link>
 
-            <Link href="./freeform/freeform4">
+            {/* <Link href="./freeform/freeform4">
               <div id="freeform4" className={styles.card}
                 style = {{
                   color: hover4 ? 'rgb(135,40,237)' : 'black',
@@ -256,7 +256,7 @@ export default function Freeform() {
                 <h2>4</h2>
                 <p>Create freeform art on a blank canvas</p>
               </div>
-            </Link>
+            </Link> */}
 
           </div>
         </div>

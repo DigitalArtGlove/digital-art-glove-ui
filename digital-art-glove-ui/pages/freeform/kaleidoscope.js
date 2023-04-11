@@ -78,10 +78,11 @@ const MyKaleidoscope = (data) => {
         }
 
         if (data.select) {
+            // console.log('hello')
             for (let i=0; i < lineofsym; i++) {
                 p5.rotate(angle);
                 p5.strokeWeight(brush);
-                p5.stroke(pos[x_coord]-20, 120, pos[y_coord]-20);
+                p5.stroke(pos[x_coord], 120, pos[y_coord]);
                 p5.line(mx, my, pmx, pmy);
                 p5.push();
                 p5.scale(1,-1);
