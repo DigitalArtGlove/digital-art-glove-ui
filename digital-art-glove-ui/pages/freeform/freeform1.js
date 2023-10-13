@@ -165,7 +165,7 @@ export default function Canvas() {
   //redirect to index, clear, save
   useEffect(() => {
     if (hover1 && select) {
-      router.push('/');
+      router.push('/freeform');
     }
     if (hover2 && select) {
       setClearToggle(!clearToggle);

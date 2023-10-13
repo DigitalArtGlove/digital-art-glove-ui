@@ -2,15 +2,11 @@ import React from 'react';
 import styles from '../styles/Home.module.css'
 import EraseIcon from './eraseIcon';
 
-const sizeBox = (props) => {
-  let box = null;
-  let size = props.size;
+const colourValues = {0:"0 0 0", 1:"135 40 237", 2:"25 175 250", 3:"222 22 212" };
 
-  box = <div className={styles.sizeBox}
-    style = {{
-      width: {size}+'px',
-      height: {size}+'px'
-    }}></div>;
+const sizeBox = (props) => {
+  let size = props.size;
+  let colourIndex = props.colourIndex;
 
   if (props.erase) {
     return (
@@ -24,7 +20,8 @@ const sizeBox = (props) => {
         <div className={styles.sizeBox}
         style = {{
           width: (size)+'px',
-          height: (size)+'px'
+          height: (size)+'px',
+          backgroundColor: 'rgb('+colourValues[colourIndex]+')'
         }}></div>
       </div>
     );

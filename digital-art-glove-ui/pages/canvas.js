@@ -187,7 +187,7 @@ export default function Canvas() {
     },[hover1, hover2, hover3, select]);
 
   useEffect(() => {
-    if (middleFlexVal > 500 && ringFlexVal > 500) {
+    if (middleFlexVal > 300 && ringFlexVal > 500) {
       setBrushSize(Math.min(Math.max(5,Number(pitchVal)+20),65));
     }
   }, [middleFlexVal, ringFlexVal])
@@ -221,7 +221,7 @@ export default function Canvas() {
           </div>
           <div className={styles.currentSizeBox}>
             {/* replace with size*/}
-            <SizeBox size={brushSize} erase={erase}/>
+            <SizeBox size={brushSize} erase={erase} colourIndex={colourIndex}/>
           </div>
           <div id="clearButton" className={styles.clearButton} onClick={() => setClearToggle(!clearToggle)}>
             <ClearIcon colour={hover2 ? 'rgb(135,40,237)' : 'black'}/>
@@ -243,6 +243,9 @@ export default function Canvas() {
               colourIndex={colourIndex} 
               clearToggle={clearToggle}
               saveToggle={saveToggle}
+              hover1={hover1}
+              hover2={hover2}
+              hover3={hover3}
             />
           </div>
         </div>

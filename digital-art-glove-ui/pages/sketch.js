@@ -49,7 +49,7 @@ const MySketch = (data) => {
     p5.stroke(rVal, gVal, bVal);
     p5.strokeWeight(size);
 
-    if (data.update && data.select && !data.erase && prevPrevPos != null) {
+    if (data.update && data.select && !data.erase && !data.hover1 && !data.hover2 && !data.hover3 && prevPrevPos != null) {
       
       p5.noFill();
       p5.beginShape();

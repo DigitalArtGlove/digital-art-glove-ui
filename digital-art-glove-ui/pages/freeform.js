@@ -179,7 +179,7 @@ export default function Freeform() {
     //   router.push('/freeform/freeform4');
     // }
     if (hover5 && select) {
-      router.push('/freeform');
+      router.push('/');
     }
   },[hover1, hover2, hover3, hover5, select]);
 
